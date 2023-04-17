@@ -1,7 +1,7 @@
 import { db} from "../firebase.js";
 import firebase from 'firebase/compat/app';
 import { createDefaultIcon } from "../Js/user";
-import { getDoc, doc, getDocs, collection, query, where, orderBy, limit } from "firebase/firestore";
+import { getDoc, doc, getDocs, collection, query, where, orderBy, limit, updateDoc, arrayUnion } from "firebase/firestore";
 
 /**
  * Funcion para crear un projecto por defecto si no tienr projecto.
@@ -67,6 +67,28 @@ async function getRecientProject(uid){
     const querySnapshot = await getDocs(q);
 }
 
+async function inviteUser(email, project_id) {
+    //Buscar el usuario con el email.
+    const userRef = collection(db, "users");
+    const q = query(userRef, where("e_mail", "==", email), limit(1));
+    const invitedUserSnapshot = await getDocs(q);
+
+    //Si no se encontra el usuario retorna false
+    if (invitedUserSnapshot.empty) return false;
+
+    //Añadir a la lista de invitación del projecto al usuario invitado.
+    const invitedUserRef = doc(db, "users", invitedUserSnapshot.docs[0].data().uid);
+    await updateDoc(invitedUserRef, {
+        invited: arrayUnion(project_id),
+    });
+
+    //Añadir a la lista de invitación del projecto.
+    const invitationProjectRef = doc(db, "projects", project_id);
+    await updateDoc(invitationProjectRef, {
+        invitation: arrayUnion(invitedUserSnapshot.docs[0].data().uid),
+    });
+}
+
 function removeProject(params) {
     
 }
@@ -83,4 +105,4 @@ function joinToProject(params) {
     
 }
 
-export { setInitProject, getAllProjects, createProject, removeProject, addUser, removeUser, joinToProject, getRecientProject }
+export { setInitProject, getAllProjects, createProject, removeProject, addUser, removeUser, joinToProject, getRecientProject, inviteUser }

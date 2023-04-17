@@ -6,12 +6,13 @@ import { v4 as uuidv4 } from 'uuid';
 import Message from './Message';
 import MyMessage from './MyMessage';
 import { Link, useNavigate } from "react-router-dom";
+import { inviteUser } from "../Js/project";
 
 
 
 
 const ChatBox = (props) => {
-  console.log(props.project);
+  console.log(props.projectId);
   //------------------------------------------
   //--------------- VARIABLES ----------------
   //------------------------------------------
@@ -29,7 +30,9 @@ const ChatBox = (props) => {
 
   }
 
-  //------------------------------------------
+  /**
+   * Funcion para invitar usuario al projecto
+   */
   async function addUser() {
     const Swal = require('sweetalert2')
     //------DIRECCION CORREO-----------
@@ -39,10 +42,6 @@ const ChatBox = (props) => {
       inputLabel: 'user email address',
       inputPlaceholder: 'Enter user email address'
     })
-
-    if (email) {
-      Swal.fire(`Entered email: ${email}`)
-    }
 
     //--ROL-----
     const { value: role } = await Swal.fire({
@@ -57,12 +56,13 @@ const ChatBox = (props) => {
           prijectManager: 'Project manager',
         },
       },
+      inputPlaceholder: 'Select a rol',
       showCancelButton: true,
-
     })
 
-    if (role) {
-      Swal.fire(`You selected: ${role}`)
+    if (email, role) {
+      Swal.fire(`Entered email: ${email}\nYou selected: ${role}`)
+      inviteUser(email, props.projectId);
     }
   }
 

@@ -22,6 +22,7 @@ const Test2 = () => {
   //------------------------------------------
   const [projects, setProjects] = useState([]);
   const [project, setProject] = useState({});
+  const [projectId, setProjectId] = useState("");
   const [user, setUser] = useState({});
 
   useEffect(() => {
@@ -51,10 +52,14 @@ const Test2 = () => {
     const q = query(docRef, where("admin", "==", uid), orderBy("last_connection_at", "desc"), limit(1));
     getDocs(q).then((snapshot) => {
       let result = [];
+      let id = "";
       snapshot.docs.forEach((doc) => {
+        console.log(doc.id);
         result.push(doc.data());
+        id = doc.id;
       });
       setProject(result[0]);
+      setProjectId(id);
     })
   }
 
@@ -95,6 +100,7 @@ const Test2 = () => {
 
           <ChatBox 
             project = {project}
+            projectId = {projectId}
           />
 
           {/*RIGHT MENU*/}
@@ -109,11 +115,6 @@ const Test2 = () => {
     </div>
   );
 }
-
-
-
-
-
 
 export default Test2;
 

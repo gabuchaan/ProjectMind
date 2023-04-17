@@ -131,7 +131,6 @@ const Sidebar = (props) => {
                             </div>
                         </div></>)}
                 <div className="justify-center items-center flex flex-col space-y-3">
-                    <div className="bg-gray-300 dark:bg-boxes w-12 h-12 rounded-md hover:scale-105 hover:shadow-lg transition-all hover:bg-gray-500"></div>
                     {props.projects.map((project) => {
                         return (
                             <ProjectIcon
