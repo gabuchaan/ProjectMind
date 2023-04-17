@@ -2,22 +2,22 @@ import React, { useState, useEffect } from 'react'
 import { AiOutlineBell } from "react-icons/ai";
 import { BsPlusCircle } from "react-icons/bs";
 import ProjectIcon from "./ProjectIcon";
+import InvitationNotification from '../Components/InvitationNotification';
 import { getDoc, doc, getDocs, collection, query, where, orderBy, limit } from "firebase/firestore";
 import { checkIfNotEmpty } from '../Js/common';
 import { getAuthUser, getUserFromAuth } from "../Js/user";
 import { createProject, getAllProjects } from '../Js/project';
-import { auth, db } from "../firebase.js";
 import { log } from 'util';
+import { propTypes } from 'react-bootstrap/esm/Image';
 
 const Sidebar = (props) => {
 
-    console.log(props.user);
     const Swal = require('sweetalert2')
     const [darkMode, setDarkMode] = useState(false);
     const [showNotifications, setShowNotifications] = useState(false);
 
     const handleClick3 = () => {
-        setShowNotifications(!showNotifications);
+        if (props.invitation.length != 0 ) setShowNotifications(!showNotifications);
     };
 
     useEffect(() => {
@@ -38,8 +38,7 @@ const Sidebar = (props) => {
             preConfirm: () => {
                 const projectName = document.getElementById('projectName').value;
                 if (!checkIfNotEmpty(projectName)) return "Tienes que poner un nombre";
-                console.log(getAuthUser().multiFactor.user.uid);
-                createProject(getAuthUser().multiFactor.user.uid, projectName);
+                createProject(props.userId);
 
                 return projectName;
             }
@@ -84,51 +83,17 @@ const Sidebar = (props) => {
                         <div class="absolute left-16 w-screen h-screen z-40 bg-black opacity-50 transition-all"></div>
                         <div class="absolute bg-gray-300 dark:bg-gray-700 z-50 w-80 h-auto top-20 left-20 rounded-lg p-3 space-y-2 ">
                             {/*NOTIFICATION POPUP*/}
-                            <div id="toast-message-cta" class="hover:scale-105 hover:shadow-lg cursor-pointer transition-all w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:bg-gray-800 dark:text-gray-400" role="alert">
-                                <div class="flex">
-                                    <img class="w-8 h-8 rounded-full shadow-lg" src="https://tecdn.b-cdn.net/img/new/avatars/3.webp" alt="Jese Leos image" />
-                                    <div class="ml-3 text-sm font-normal">
-                                        <span class="mb-1 text-sm font-semibold text-gray-900 dark:text-white">Max Jones</span>
-                                        <div class="mb-2 text-sm font-normal">Hi , Join my project.</div>
-                                        <a href="#" class="inline-flex px-2.5 py-1.5 text-xs font-medium text-center text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300">Accept</a>
-                                        <a href="#" class="inline-flex px-2.5 py-1.5 text-xs font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 ml-3">Decline</a>
-                                    </div>
-                                    <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-message-cta" aria-label="Close">
-                                        <span class="sr-only">Close</span>
-                                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                                    </button>
-                                </div>
-                            </div>
-                            <div id="toast-message-cta" class="hover:scale-105 hover:shadow-lg cursor-pointer transition-all w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:bg-gray-800 dark:text-gray-400" role="alert">
-                                <div class="flex">
-                                    <img class="w-8 h-8 rounded-full shadow-lg" src="https://tecdn.b-cdn.net/img/new/avatars/8.webp" alt="Jese Leos image" />
-                                    <div class="ml-3 text-sm font-normal">
-                                        <span class="mb-1 text-sm font-semibold text-gray-900 dark:text-white">Jese Leos</span>
-                                        <div class="mb-2 text-sm font-normal">Hi Neil, thanks for sharing your thoughts regarding Flowbite.</div>
-                                        <a href="#" class="inline-flex px-2.5 py-1.5 text-xs font-medium text-center text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300">Accept</a>
-                                        <a href="#" class="inline-flex px-2.5 py-1.5 text-xs font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 ml-3">Decline</a>
-                                    </div>
-                                    <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-message-cta" aria-label="Close">
-                                        <span class="sr-only">Close</span>
-                                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                                    </button>
-                                </div>
-                            </div>
-                            <div id="toast-message-cta" class="hover:scale-105 hover:shadow-lg cursor-pointer transition-all w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:bg-gray-800 dark:text-gray-400" role="alert">
-                                <div class="flex">
-                                    <img class="w-8 h-8 rounded-full shadow-lg" src="https://tecdn.b-cdn.net/img/new/avatars/4.webp" alt="Jese Leos image" />
-                                    <div class="ml-3 text-sm font-normal">
-                                        <span class="mb-1 text-sm font-semibold text-gray-900 dark:text-white">Gina Zane</span>
-                                        <div class="mb-2 text-sm font-normal">How's it going? do u want to join our team?</div>
-                                        <a href="#" class="inline-flex px-2.5 py-1.5 text-xs font-medium text-center text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300">Accept</a>
-                                        <a href="#" class="inline-flex px-2.5 py-1.5 text-xs font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 ml-3">Decline</a>
-                                    </div>
-                                    <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-message-cta" aria-label="Close">
-                                        <span class="sr-only">Close</span>
-                                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                                    </button>
-                                </div>
-                            </div>
+
+                            {
+                                props.invitation.map((project) => {
+                                    return (
+                                        <InvitationNotification
+                                            project={props.invitation}
+                                            userId={props.userId}
+                                        />
+                                    )
+                                })
+                            }
                         </div></>)}
                 <div className="justify-center items-center flex flex-col space-y-3">
                     {props.projects.map((project) => {

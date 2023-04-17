@@ -12,7 +12,6 @@ import { inviteUser } from "../Js/project";
 
 
 const ChatBox = (props) => {
-  console.log(props.projectId);
   //------------------------------------------
   //--------------- VARIABLES ----------------
   //------------------------------------------

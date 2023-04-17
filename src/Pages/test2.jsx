@@ -9,13 +9,14 @@ import Rightmenu from '../Components/Rightmenu';
 import { getDoc, doc, getDocs, collection, query, where, orderBy, limit } from "firebase/firestore";
 import { auth, db } from "../firebase.js";
 import { getUser, getAuthUser } from "../Js/user";
+import { getInvitedProjects } from "../Js/project";
 
 const Test2 = () => {
 
   //------------------------------------------
   //--------------- VARIABLES ----------------
   //------------------------------------------
-  const authUser = getAuthUser();
+  const authUser = auth.currentUser;
 
   //------------------------------------------
   //----------------- HOOKS ------------------
@@ -24,11 +25,15 @@ const Test2 = () => {
   const [project, setProject] = useState({});
   const [projectId, setProjectId] = useState("");
   const [user, setUser] = useState({});
+  const [userId, setUserId] = useState("");
+  const [invitation, setInvitation] = useState({});
 
   useEffect(() => {
     getRecentProject(authUser.uid);
     getProjects(authUser.uid);
     getCurrentUser(authUser.uid);
+    setUserId(authUser.uid);
+    getInvitationProjects(authUser.uid);
   }, [])
   //------------------------------------------
   //--------------- FUNCTIONS ----------------
@@ -54,13 +59,26 @@ const Test2 = () => {
       let result = [];
       let id = "";
       snapshot.docs.forEach((doc) => {
-        console.log(doc.id);
         result.push(doc.data());
         id = doc.id;
       });
       setProject(result[0]);
       setProjectId(id);
     })
+  }
+
+  const getInvitationProjects = async (uid) => {
+    let projects = [];
+
+    getUser(uid).then((result) => {
+      result.invited.map(async (project) => {
+        const docRef = doc(db, "projects", project);
+        const docSnap = await getDoc(docRef);
+
+        projects.push({id: docSnap.id, data: docSnap.data()});
+      })
+    })
+    setInvitation(projects);
   }
 
   /**
@@ -80,7 +98,9 @@ const Test2 = () => {
       <Topbar />
       <Sidebar
         projects={projects}
-        user = {user}
+        user={authUser}
+        userId={userId}
+        invitation = {invitation}
       />
       {/*MAIN CONTAINER*/}
 
@@ -98,9 +118,9 @@ const Test2 = () => {
           </div>
           {/*CHAT----------------------------*/}
 
-          <ChatBox 
-            project = {project}
-            projectId = {projectId}
+          <ChatBox
+            project={project}
+            projectId={projectId}
           />
 
           {/*RIGHT MENU*/}

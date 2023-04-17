@@ -89,6 +89,10 @@ async function inviteUser(email, project_id) {
     });
 }
 
+function getInvitedProjects(invitation) {
+    console.log(invitation);
+}
+
 function removeProject(params) {
     
 }
@@ -105,4 +109,4 @@ function joinToProject(params) {
     
 }
 
-export { setInitProject, getAllProjects, createProject, removeProject, addUser, removeUser, joinToProject, getRecientProject, inviteUser }
+export { setInitProject, getAllProjects, createProject, removeProject, addUser, removeUser, joinToProject, getRecientProject, inviteUser, getInvitedProjects }
