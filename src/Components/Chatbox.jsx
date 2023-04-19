@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { AiOutlineSend, AiOutlineUserAdd, AiOutlineBell } from "react-icons/ai";
-import { BsCamera, BsMic, BsEmojiSmile, BsFileEarmarkPdfFill, BsCloudArrowUp } from "react-icons/bs";
+import { BsCamera, BsMic, BsEmojiSmile, BsFileEarmarkPdfFill, BsCloudArrowUp, BsGear } from "react-icons/bs";
 import { v4 as uuidv4 } from 'uuid';
 import Message from './Message';
 import MyMessage from './MyMessage';
@@ -98,18 +98,18 @@ const ChatBox = (props) => {
           <div>
             <img className="ring-2 ring-gray-300 dark:ring-gray-600 border-4 border-transparent rounded-full  w-12" src="https://tecdn.b-cdn.net/img/new/avatars/8.webp" />
           </div>
-          <div>
+          <div className='cd '>
             <div className="intro-y text-md ml-5 font-medium text-bars dark:text-white">{props.project.name}</div>
             <div id='roomname' className="intro-y text-md ml-5 font-semibold text-gray-400">Ideas</div>
           </div>
 
           <div className="flex flex-row ml-auto text-gray-400 space-x-3">
 
-            <Link to="/calls">
-              <BsCamera size={23} />
+            <Link  to="/calls">
+              <BsCamera className='hover:text-white transition-all' size={23} />
             </Link>
-            <BsMic size={23} />
-            <AiOutlineUserAdd size={23} onClick={addUser} />
+            <BsMic className='cursor-pointer hover:text-white transition-all' size={23} />
+            <AiOutlineUserAdd className='cursor-pointer hover:text-white transition-all' size={23} onClick={addUser} />
           </div>
         </div>
 

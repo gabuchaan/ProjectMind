@@ -10,9 +10,14 @@ import { getDoc, doc, getDocs, collection, query, where, orderBy, limit } from "
 import { auth, db } from "../firebase.js";
 import { getUser, getAuthUser } from "../Js/user";
 import { getInvitedProjects } from "../Js/project";
+import EditProject from '../Components/EditProject';
+import { BsGear } from 'react-icons/bs';
 
 const Test2 = () => {
-
+  const [showEditProject, setShowEditProject] = useState(false);
+  const toggleEditProject = () => {
+    setShowEditProject(!showEditProject);
+  };
   //------------------------------------------
   //--------------- VARIABLES ----------------
   //------------------------------------------
@@ -75,7 +80,7 @@ const Test2 = () => {
         const docRef = doc(db, "projects", project);
         const docSnap = await getDoc(docRef);
 
-        projects.push({id: docSnap.id, data: docSnap.data()});
+        projects.push({ id: docSnap.id, data: docSnap.data() });
       })
     })
     setInvitation(projects);
@@ -100,9 +105,10 @@ const Test2 = () => {
         projects={projects}
         user={authUser}
         userId={userId}
-        invitation = {invitation}
+        invitation={invitation}
       />
       {/*MAIN CONTAINER*/}
+      <BsGear size={23} onClick={toggleEditProject} className='fixed top-36 left-5 hover:text-white transition-all cursor-pointer' />
 
       <div className="md:pl-16 pt-16">
         <div className="bg-wback dark:bg-back -mt-16 ml-auto xl:-ml-16 mr-auto xl:pl-16 pt-16 xl:h-screen w-auto sm:w-3/5 xl:w-auto grid grid-cols-12 gap-6">
@@ -118,10 +124,19 @@ const Test2 = () => {
           </div>
           {/*CHAT----------------------------*/}
 
-          <ChatBox
-            project={project}
-            projectId={projectId}
-          />
+
+          {showEditProject ? (
+            <EditProject />
+          ) : (
+            <ChatBox
+              project={project}
+              projectId={projectId}
+            />
+          )}
+
+          
+
+
 
           {/*RIGHT MENU*/}
 
