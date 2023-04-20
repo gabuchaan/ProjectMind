@@ -66,7 +66,6 @@ const Sidebar = (props) => {
     return (
         <div>
             <div className="bg-white dark:bg-bars justify-center items-center side-menu  top-0 left-0 fixed w-16 h-screen flex flex-col  shadow-lg">
-             <img className='fixed top-20 left-10 bg-white' src="../NEW.png"/>
                 {/*NOTIFICATION BUTTON*/}
                 <AiOutlineBell onClick={handleClick3} size={27} class="text-gray-400 hover:text-gray-500 dark:hover:text-white hover:scale-105 cursor-pointer transition-all fixed top-20" />
                 <button className='fixed bottom-24'>

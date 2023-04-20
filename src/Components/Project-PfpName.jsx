@@ -11,6 +11,7 @@ const ProjectPfpName = () => {
             </div>
             <div className='flex mt-5 items-center'>
                 <div className='cursor-pointer'>
+                   
                     <img className="hover:shadow-xl hover:scale-105 transition-all ring-2 ring-gray-300 dark:ring-gray-600 border-4 border-transparent rounded-full  w-32" src="https://tecdn.b-cdn.net/img/new/avatars/11.webp" />
                 </div>
                 <div className='w-52 ml-6 text-gray-600 dark:text-gray-400'>
@@ -25,8 +26,11 @@ const ProjectPfpName = () => {
                 </div>
 
             </div>
-            <div className='hover:scale-105 hover:shadow-lg transition-all bg-transparent cursor-pointer rounded-md items-center justify-center flex w-auto pl-4 pr-4 ml-6 border mt-3'>Delete</div>
-
+            <div className='flex'>
+              <div className='hover:scale-105 hover:shadow-lg transition-all bg-transparent cursor-pointer rounded-md items-center justify-center flex w-auto pl-4 pr-4 ml-6 border mt-3'>Delete</div>
+            <input type="file"  className='mt-3 ml-11'></input>  
+            </div>
+            
         </div>
     )
 }

@@ -33,9 +33,9 @@ const MenuProfile = () => {
         <>
             <div className="text-xl font-medium flex text-white"><IoArrowBackCircleSharp size={27} className='mr-5 hover:scale-105 cursor-pointer transition-all' onClick={() => toggleMenu("menu-main")} /> Edit Profile<AiFillEdit className='mt-1 ml-11 cursor-pointer hover:scale-105 text-gray-300 hover:text-white' /></div>
 
-            <div className='bg-boxes w-full h-64 mt-4 rounded-md items-center flex flex-col'>
-                <div className='bg-bars rounded-full w-44 h-44 mt-5'></div>
-                <div className="intro-y text-xl font-medium text-white mt-4">Username</div>
+            <div className='bg-white dark:bg-boxes w-full h-64 mt-4 rounded-md items-center flex flex-col'>
+                <div className='bg-wback border rounded-full w-44 h-44 mt-5'></div>
+                <div className="intro-y text-xl font-medium text-black dark:text-white mt-4">Username</div>
             </div>
             <div className='bg-boxes w-full h-auto mt-3 rounded-md items-center flex flex-col p-3'>
                 <div className='flex flex-row space-x-2 w-full'>
