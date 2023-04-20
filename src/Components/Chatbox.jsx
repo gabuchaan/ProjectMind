@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { AiOutlineSend, AiOutlineUserAdd, AiOutlineBell } from "react-icons/ai";
 import { BsCamera, BsMic, BsEmojiSmile, BsFileEarmarkPdfFill, BsCloudArrowUp, BsGear } from "react-icons/bs";
 import { v4 as uuidv4 } from 'uuid';
@@ -24,10 +24,7 @@ const ChatBox = (props) => {
   //--------------- FUNCTIONS ----------------
   //------------------------------------------
 
-  function goCall() {
-    console.log('gocall')
-
-  }
+ 
 
   /**
    * Funcion para invitar usuario al projecto
@@ -88,9 +85,7 @@ const ChatBox = (props) => {
     setMensajeInput("");
   };
 
-  //------------------------------------------
-  //--------------- COMPONENT ----------------
-  //------------------------------------------
+
   return (
     <>
       <div className=" chat-box border-gray-300 dark:border-boxes col-span-12 xl:col-span-6 flex flex-col overflow-hidden xl:border-l xl:border-r p-6">
