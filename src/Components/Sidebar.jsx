@@ -39,7 +39,8 @@ const Sidebar = (props) => {
             preConfirm: () => {
                 const projectName = document.getElementById('projectName').value;
                 if (!checkIfNotEmpty(projectName)) return "Tienes que poner un nombre";
-                createProject(props.userId);
+                console.log("hola");
+                createProject(props.userId, projectName);
 
                 return projectName;
             }

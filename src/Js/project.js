@@ -59,6 +59,8 @@ async function createProject(uid, projectName) {
 
     //Crear un projecto en users
     const userProjectRef = await db.collection('users').doc(uid).collection('projects').add({project: res.id});
+    const messageProjectRef = await db.collection('messages').doc(res.id).set({project: projectName});
+
 }
 
 async function getRecientProject(uid){

@@ -130,8 +130,11 @@ const Test2 = () => {
             <EditProject />
           ) : (
             <ChatBox
-              project={project}
-              projectId={projectId}
+            project={project}
+            projectId={projectId}
+            authUser={authUser}
+            user={user}
+            userId={userId}
             />
           )}
 
@@ -153,8 +156,3 @@ const Test2 = () => {
 }
 
 export default Test2;
-
-
-
-
-

@@ -4,13 +4,25 @@ import { AiOutlineSend, AiOutlineUserAdd, AiOutlineBell } from "react-icons/ai";
 import { BsCamera, BsMic, BsEmojiSmile, BsFileEarmarkPdfFill, BsCloudArrowUp, BsGear } from "react-icons/bs";
 import { v4 as uuidv4 } from 'uuid';
 import Message from './Message';
+import { db } from "../firebase.js";
 import MyMessage from './MyMessage';
 import { Link, useNavigate } from "react-router-dom";
 import { inviteUser } from "../Js/project";
+import { log } from 'util';
+import { collection } from 'firebase/firestore';
+import firebase from 'firebase/compat/app';
 
 
-
-
+/**
+ * 
+ * @param {*} props 
+ * project={project}
+ * projectId={projectId}
+ * authUser={authUser}
+ * user={user}
+ * userId={userId}
+ * @returns 
+ */
 const ChatBox = (props) => {
   //------------------------------------------
   //--------------- VARIABLES ----------------
@@ -19,12 +31,23 @@ const ChatBox = (props) => {
   //------------------------------------------
   //----------------- HOOKS ------------------
   //------------------------------------------
+  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState("");
+  const [mensajeInput, setMensajeInput] = useState("");
+
+  useEffect(() => {
+
+    if (props.projectId) {
+      db.collection("messages").doc(props.projectId).collection("messages")
+        .onSnapshot((snapShot) => {
+          setMessages(snapShot.docs.map((doc) => doc.data()))
+        });
+    }
+  }, [props.projectId]);
 
   //------------------------------------------
   //--------------- FUNCTIONS ----------------
   //------------------------------------------
-
- 
 
   /**
    * Funcion para invitar usuario al projecto
@@ -57,32 +80,30 @@ const ChatBox = (props) => {
     })
 
     if (email, role) {
-      Swal.fire(`Entered email: ${email}\nYou selected: ${role}`)
+      Swal.fire(`Entered email: ${email}\nYou selected: ${role}`);
       inviteUser(email, props.projectId);
     }
   }
-
-  const [messages, setMessages] = useState([]);
 
   const agregarMensaje = (mensaje) => {
     setMessages([...messages, mensaje]);
   };
 
-  const [mensajeInput, setMensajeInput] = useState("");
-
   const handleInputChange = (event) => {
     setMensajeInput(event.target.value);
   };
 
-  const handleSendMessage = () => {
-    const nuevoMensaje = {
-      id: uuidv4(),
-      usuario: "Yo",
-      mensaje: mensajeInput,
-      hora: new Date().toLocaleTimeString(),
-    };
-    agregarMensaje(nuevoMensaje);
-    setMensajeInput("");
+  const handleSendMessage = async () => {
+
+    console.log(message);
+    const messageObj = {
+      message: message,
+      senderId: props.userId,
+      created_at: firebase.firestore.FieldValue.serverTimestamp(),
+    }
+
+    //Almasenar el mensaje
+    const docRef = await db.collection("messages").doc(props.projectId).collection("messages").add(messageObj);
   };
 
 
@@ -110,23 +131,23 @@ const ChatBox = (props) => {
 
         {/*MESSAGES----------------*/}
         <div className="overflow-y-scroll scrollbar-hidden scrollbar-hide pt-5 flex-1 float-left">
-          {messages.map((mensaje) =>
-            mensaje.usuario === "Yo" ? (
-              <MyMessage key={mensaje.id} mensaje={mensaje} />
-            ) : (
-              <Message key={mensaje.id} mensaje={mensaje} />
-            )
+          {messages.map((me, index) => {
+            return <Message message={me} 
+            user={props.user}
+            userId={props.userId}
+            key={index}/>
+          }
           )}
 
         </div>
 
-
         <div className="bg-white dark:bg-bars h-16 chat-input box border-gray-300 dark:border-bars rounded-md border flex items-center pl-2 pr-2 py-4 ">
           <input type="file" className="bg-gray-300 text-back dark:bg-bars dark:text-white file-input file-input-bordered w-full max-w-xs" />
-          <input type="text" placeholder="Type here" className="bg-white text-back dark:bg-bars dark:text-white ml-2 input input-bordered input-primary w-full " />
+          <input type="text" placeholder="Type here" className="bg-white text-back dark:bg-bars dark:text-white ml-2 input input-bordered input-primary w-full " onChange={(e) => setMessage(e.target.value)} />
           <BsEmojiSmile size={23} className="text-gray-400 ml-2 w-10" />
           <AiOutlineSend size={23} className="text-gray-400 w-10 ml-3" onClick={handleSendMessage} />
         </div>
+
       </div>
     </>
   )
