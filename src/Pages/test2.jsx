@@ -121,6 +121,9 @@ const Test2 = () => {
           <ChatBox
             project={project}
             projectId={projectId}
+            authUser={authUser}
+            user={user}
+            userId={userId}
           />
 
           {/*RIGHT MENU*/}
@@ -137,8 +140,3 @@ const Test2 = () => {
 }
 
 export default Test2;
-
-
-
-
-
