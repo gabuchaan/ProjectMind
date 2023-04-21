@@ -34,12 +34,15 @@ const Test2 = () => {
   const [invitation, setInvitation] = useState({});
 
   useEffect(() => {
-    getRecentProject(authUser.uid);
-    getProjects(authUser.uid);
-    getCurrentUser(authUser.uid);
-    setUserId(authUser.uid);
-    getInvitationProjects(authUser.uid);
-  }, [])
+    if(authUser){
+      getRecentProject(authUser.uid);
+      getProjects(authUser.uid);
+      getCurrentUser(authUser.uid);
+      setUserId(authUser.uid);
+      getInvitationProjects(authUser.uid);
+
+    }
+  }, [authUser])
   //------------------------------------------
   //--------------- FUNCTIONS ----------------
   //------------------------------------------
@@ -58,17 +61,17 @@ const Test2 = () => {
   }
 
   const getRecentProject = async (uid) => {
-    const docRef = collection(db, "projects");
-    const q = query(docRef, where("admin", "==", uid), orderBy("last_connection_at", "desc"), limit(1));
-    getDocs(q).then((snapshot) => {
-      let result = [];
-      let id = "";
-      snapshot.docs.forEach((doc) => {
-        result.push(doc.data());
-        id = doc.id;
+    const userProjectsRef = collection(db, "users", uid, "projects");
+    const q = query(userProjectsRef,  orderBy("last_connection_at", "desc"), limit(1));
+    getDocs(q).then( (snapshot) => {
+      console.log(snapshot.docs[0]._document.data.value.mapValue.fields.project.stringValue);
+      const projectRef = doc(db, "projects", snapshot.docs[0]._document.data.value.mapValue.fields.project.stringValue);
+      getDoc(projectRef)
+      .then((projectData) => {
+        console.log(projectData);
+        setProject(projectData.data());
+        setProjectId(projectData.id);
       });
-      setProject(result[0]);
-      setProjectId(id);
     })
   }
 
