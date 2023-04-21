@@ -1,3 +1,4 @@
+//INICIALIZAMOS SERVIDOR
 const app = require("express")();
 const server = require("http").createServer(app);
 const cors = require("cors");
@@ -17,10 +18,9 @@ app.get('/', (req, res) => {
 	res.send('Running');
 });
 
+//EVENTO CONNECTION PARA CONEXION CLIENTE SERVER
 io.on("connection", (socket) => {
-
-
-	console.log("Evento 'connection' recibido.");
+	console.log("Evento 'connection2' recibido de " + socket.id);
 	socket.emit("me", socket.id);
 
 	socket.on("disconnect", () => {

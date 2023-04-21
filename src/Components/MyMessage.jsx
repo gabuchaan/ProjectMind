@@ -9,9 +9,9 @@ const MyMessage = ({ mensaje }) => {
               <img src="https://tecdn.b-cdn.net/img/new/avatars/3.webp" alt="Avatar" />
             </div>
           </div>
-          <div className="chat-header">
+          <div className="chat-header flex items-center">
+          <div className="text-xs opacity-50 mr-2">Developer</div>
             Anakin
-            <time className="text-xs opacity-50">{mensaje.hora}</time>
           </div>
           <div className="chat-bubble chat-bubble-primary shadow-md dark:shadow-none shadow-gray-400">
             {mensaje.mensaje}

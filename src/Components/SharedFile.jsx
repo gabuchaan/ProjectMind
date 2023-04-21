@@ -1,5 +1,9 @@
 import React from 'react'
 import { BsFileEarmarkPdfFill } from "react-icons/bs";
+import {
+    AiFillFileExcel, AiFillFileExclamation, AiFillFileImage, AiFillFileMarkdown, AiFillFilePpt,
+    AiFillFileText, AiFillFileWord, AiFillFileZip, AiFillFile
+} from "react-icons/ai";
 
 const SharedFile = () => {
     return (

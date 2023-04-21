@@ -12,6 +12,7 @@ import { getUser, getAuthUser } from "../Js/user";
 import { getInvitedProjects } from "../Js/project";
 import EditProject from '../Components/EditProject';
 import { BsGear } from 'react-icons/bs';
+import RightMenuTools from '../Components/RightMenuTools';
 
 const Test2 = () => {
   const [showEditProject, setShowEditProject] = useState(false);
