@@ -49,6 +49,32 @@ const Calls = () => {
         setTexto(event.target.value); // Actualizamos el valor del textarea cuando el usuario escribe
     }
 
+    const [isScreenSharing, setIsScreenSharing] = useState(false);
+    {/*const handleShareScreen = () => {
+        if (!isScreenSharing) {
+            navigator.mediaDevices.getDisplayMedia({ cursor: true })
+                .then((stream) => {
+                    const screenTrack = stream.getTracks()[0];
+                    setIsScreenSharing(true);
+                    screenTrack.onended = () => {
+                        setIsScreenSharing(false);
+                    };
+                    const videoTrack = stream.getVideoTracks()[0];
+                    videoTrack.onended = () => {
+                        setIsScreenSharing(false);
+                    };
+                    const sender = peerConnection.addTrack(videoTrack, stream);
+                    setScreenSender(sender);
+                })
+                .catch((err) => {
+                    console.error('Error al compartir pantalla: ', err);
+                    setIsScreenSharing(false);
+                });
+        } else {
+            screenSender?.replaceTrack(null);
+            setIsScreenSharing(false);
+        }
+    };*/ }
 
 
 
@@ -98,7 +124,11 @@ const Calls = () => {
                                 )}
                             </div>
                             <div className='w-12 h-12 rounded-md bg-blue-400 text-gray-200 hover:text-white hover:bg-blue-500 transition-all flex items-center justify-center cursor-pointer'>
-                                <MdScreenShare size={28} />
+
+
+                                <MdScreenShare size={28} className="text-gray-200 hover:text-white cursor-pointer" />
+
+
                             </div>
                             <div onClick={leaveCall} className='w-40 h-12 rounded-md bg-red-400 text-gray-200 hover:text-white hover:bg-red-500 font-semibold transition-all flex items-center justify-center cursor-pointer'>
                                 End meeting
