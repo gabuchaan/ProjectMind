@@ -64,11 +64,9 @@ const Test2 = () => {
     const userProjectsRef = collection(db, "users", uid, "projects");
     const q = query(userProjectsRef,  orderBy("last_connection_at", "desc"), limit(1));
     getDocs(q).then( (snapshot) => {
-      console.log(snapshot.docs[0]._document.data.value.mapValue.fields.project.stringValue);
       const projectRef = doc(db, "projects", snapshot.docs[0]._document.data.value.mapValue.fields.project.stringValue);
       getDoc(projectRef)
       .then((projectData) => {
-        console.log(projectData);
         setProject(projectData.data());
         setProjectId(projectData.id);
       });

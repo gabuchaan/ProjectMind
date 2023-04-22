@@ -38,7 +38,7 @@ const ChatBox = (props) => {
   useEffect(() => {
 
     if (props.projectId) {
-      db.collection("messages").doc(props.projectId).collection("messages")
+      db.collection("messages").doc(props.projectId).collection("messages").orderBy("created_at")
         .onSnapshot((snapShot) => {
           setMessages(snapShot.docs.map((doc) => doc.data()))
         });

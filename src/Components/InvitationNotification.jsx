@@ -16,11 +16,18 @@ const InvitationNotification = (props) => {
             invited: arrayRemove(props.project[0].id),
         });
 
-        const invitedUserProjectsRef = doc(db, "users", props.userId).collection("projects");
-        await addDoc(invitedUserProjectsRef, {
+        const parentDocRef = db.collection("users").doc(props.userId);
+        const subCollectionRef = parentDocRef.collection("projects");
+
+        // const invitedUserProjectsRef = invitedUserRef.collection("projects");
+        subCollectionRef.add({
             project: props.project[0].id,
             last_connection_at: firebase.firestore.FieldValue.serverTimestamp()
         });
+        // await addDoc(collection(db, "users").doc(props.userId).collection("projects"), {
+        //     project: props.project[0].id,
+        //     last_connection_at: firebase.firestore.FieldValue.serverTimestamp()
+        // });
 
         const joinProjectRef = doc(db, "projects", props.project[0].id);
         await updateDoc(joinProjectRef, {
