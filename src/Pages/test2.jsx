@@ -34,14 +34,32 @@ const Test2 = () => {
   const [invitation, setInvitation] = useState({});
 
   useEffect(() => {
-    if(authUser){
+    if (authUser) {
       getRecentProject(authUser.uid);
-      getProjects(authUser.uid);
       getCurrentUser(authUser.uid);
       setUserId(authUser.uid);
-      getInvitationProjects(authUser.uid);
+
+      db.collection("users").doc(authUser.uid)
+        .onSnapshot((snapShot) => {
+          getInvitationProjects(authUser.uid);
+        });
+
+      db.collection("users").doc(authUser.uid).collection("projects")
+        .onSnapshot((snapShot) => {
+          getProjects(authUser.uid);
+        });
     }
-  }, [authUser])
+
+
+
+    console.log(invitation);
+    if (Object.keys(invitation).length === 0) {
+      console.log('obj is empty');
+    } else {
+      console.log('obj is not empty');
+    }
+  }, [authUser]);
+
   //------------------------------------------
   //--------------- FUNCTIONS ----------------
   //------------------------------------------
@@ -61,14 +79,14 @@ const Test2 = () => {
 
   const getRecentProject = async (uid) => {
     const userProjectsRef = collection(db, "users", uid, "projects");
-    const q = query(userProjectsRef,  orderBy("last_connection_at", "desc"), limit(1));
-    getDocs(q).then( (snapshot) => {
+    const q = query(userProjectsRef, orderBy("last_connection_at", "desc"), limit(1));
+    getDocs(q).then((snapshot) => {
       const projectRef = doc(db, "projects", snapshot.docs[0]._document.data.value.mapValue.fields.project.stringValue);
       getDoc(projectRef)
-      .then((projectData) => {
-        setProject(projectData.data());
-        setProjectId(projectData.id);
-      });
+        .then((projectData) => {
+          setProject(projectData.data());
+          setProjectId(projectData.id);
+        });
     })
   }
 
@@ -135,15 +153,15 @@ const Test2 = () => {
             <EditProject />
           ) : (
             <ChatBox
-            project={project}
-            projectId={projectId}
-            authUser={authUser}
-            user={user}
-            userId={userId}
+              project={project}
+              projectId={projectId}
+              authUser={authUser}
+              user={user}
+              userId={userId}
             />
           )}
 
-          
+
 
 
 
