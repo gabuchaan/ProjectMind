@@ -10,7 +10,6 @@ const Message = (props) => {
     }
   },[])
 
-  console.log(props.message);
   // const date = props.message.created_at.toDate().toLocaleTimeString();
 
   if (props.message.senderId == props.userId) {

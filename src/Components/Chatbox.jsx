@@ -33,6 +33,7 @@ const ChatBox = (props) => {
   //------------------------------------------
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
+  const [project, setProject] = useState({});
   const [mensajeInput, setMensajeInput] = useState("");
 
   useEffect(() => {
@@ -42,6 +43,8 @@ const ChatBox = (props) => {
         .onSnapshot((snapShot) => {
           setMessages(snapShot.docs.map((doc) => doc.data()))
         });
+
+      setProject(props.project);
     }
   }, [props.projectId]);
 
@@ -95,7 +98,6 @@ const ChatBox = (props) => {
 
   const handleSendMessage = async () => {
 
-    console.log(message);
     const messageObj = {
       message: message,
       senderId: props.userId,
@@ -104,6 +106,8 @@ const ChatBox = (props) => {
 
     //Almasenar el mensaje
     const docRef = await db.collection("messages").doc(props.projectId).collection("messages").add(messageObj);
+
+    document.getElementById("inputMessage").value = "";
   };
 
 
@@ -115,7 +119,7 @@ const ChatBox = (props) => {
             <img className="ring-2 ring-gray-300 dark:ring-gray-600 border-4 border-transparent rounded-full  w-12" src="https://tecdn.b-cdn.net/img/new/avatars/8.webp" />
           </div>
           <div className='cd '>
-            <div className="intro-y text-md ml-5 font-medium text-bars dark:text-white">{props.project.name}</div>
+            <div className="intro-y text-md ml-5 font-medium text-bars dark:text-white">{project.name}</div>
             <div id='roomname' className="intro-y text-md ml-5 font-semibold text-gray-400">Ideas</div>
           </div>
 
@@ -143,7 +147,7 @@ const ChatBox = (props) => {
 
         <div className="bg-white dark:bg-bars h-16 chat-input box border-gray-300 dark:border-bars rounded-md border flex items-center pl-2 pr-2 py-4 ">
           <input type="file" className="bg-gray-300 text-back dark:bg-bars dark:text-white file-input file-input-bordered w-full max-w-xs" />
-          <input type="text" placeholder="Type here" className="bg-white text-back dark:bg-bars dark:text-white ml-2 input input-bordered input-primary w-full " onChange={(e) => setMessage(e.target.value)} />
+          <input type="text" id='inputMessage' placeholder="Type here" className="bg-white text-back dark:bg-bars dark:text-white ml-2 input input-bordered input-primary w-full " onChange={(e) => setMessage(e.target.value)} />
           <BsEmojiSmile size={23} className="text-gray-400 ml-2 w-10" />
           <AiOutlineSend size={23} className="text-gray-400 w-10 ml-3" onClick={handleSendMessage} />
         </div>

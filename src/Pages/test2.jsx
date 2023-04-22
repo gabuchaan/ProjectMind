@@ -40,7 +40,6 @@ const Test2 = () => {
       getCurrentUser(authUser.uid);
       setUserId(authUser.uid);
       getInvitationProjects(authUser.uid);
-
     }
   }, [authUser])
   //------------------------------------------
@@ -96,6 +95,11 @@ const Test2 = () => {
     });
   }
 
+  function handleSelectProject(project) {
+    setProject(project.data);
+    setProjectId(project.id);
+  }
+
   //------------------------------------------
   //--------------- COMPONENT ----------------
   //------------------------------------------
@@ -107,6 +111,7 @@ const Test2 = () => {
         user={authUser}
         userId={userId}
         invitation={invitation}
+        onClick={handleSelectProject}
       />
       {/*MAIN CONTAINER*/}
       <BsGear size={23} onClick={toggleEditProject} className='fixed top-36 left-5 hover:text-white transition-all cursor-pointer' />
