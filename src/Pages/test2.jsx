@@ -50,8 +50,6 @@ const Test2 = () => {
         });
     }
 
-
-
     console.log(invitation);
     if (Object.keys(invitation).length === 0) {
       console.log('obj is empty');
@@ -161,14 +159,16 @@ const Test2 = () => {
             />
           )}
 
-
-
-
-
           {/*RIGHT MENU*/}
 
           <div className=" info-content col-span-12 xl:col-span-3 flex flex-col overflow-hidden pl-6 xl:pl-0 pr-6 pt-6 ">
-            <Rightmenu />
+            <Rightmenu
+              project={project}
+              projectId={projectId}
+              authUser={authUser}
+              user={user}
+              userId={userId}
+            />
           </div>
         </div>
       </div>

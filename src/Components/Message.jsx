@@ -38,11 +38,11 @@ const Message = (props) => {
       <div className="chat chat-start">
         <div className="chat-image avatar">
           <div className="w-10 rounded-full">
-            <img src={props.user.avatar} />
+            <img src={props.message.avatar} />
           </div>
         </div>
         <div className="chat-header">
-          {props.user.name}
+          {props.message.name}
           <time className="text-xs opacity-50">{dateTime}</time>
         </div>
         <div className="chat-bubble chat-bubble-primary">
