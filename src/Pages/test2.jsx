@@ -32,6 +32,7 @@ const Test2 = () => {
   const [user, setUser] = useState({});
   const [userId, setUserId] = useState("");
   const [invitation, setInvitation] = useState({});
+  const [member, setMember] = useState([]);
 
   useEffect(() => {
     if (authUser) {
@@ -50,13 +51,26 @@ const Test2 = () => {
         });
     }
 
-    console.log(invitation);
+    if (projectId) {
+      db.collection('projects').doc(projectId)
+        .onSnapshot((snapShot) => {
+          let memberArray = [];
+          snapShot.data().member.map(async (per) => {
+
+            const docRef = doc(db, "users", per);
+            const docSnap = await getDoc(docRef);
+            memberArray.push(docSnap.data())
+          })
+          setMember(memberArray);
+        })
+    }
+
     if (Object.keys(invitation).length === 0) {
       console.log('obj is empty');
     } else {
       console.log('obj is not empty');
     }
-  }, [authUser]);
+  }, [authUser, projectId]);
 
   //------------------------------------------
   //--------------- FUNCTIONS ----------------
@@ -101,6 +115,8 @@ const Test2 = () => {
     })
     setInvitation(projects);
   }
+
+
 
   /**
  * Funcion para obtener el usuario
@@ -148,7 +164,14 @@ const Test2 = () => {
 
 
           {showEditProject ? (
-            <EditProject />
+            <EditProject
+              project={project}
+              projectId={projectId}
+              authUser={authUser}
+              user={user}
+              userId={userId}
+              member={member}
+            />
           ) : (
             <ChatBox
               project={project}
