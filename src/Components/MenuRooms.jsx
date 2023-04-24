@@ -17,17 +17,17 @@ const MenuRooms = () => {
     const Swal = require('sweetalert2')
     Swal.fire({
       title: 'Project progress',
-      html: '<div class="mb-1 text-base font-medium text-blue-700 dark:text-blue-500">Design</div>' +
-        '<div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700"><div class="bg-blue-600 h-2.5 rounded-full" style="width: 45%"></div></div>' +
-        '<div class="mb-1 text-base font-medium text-red-700 dark:text-red-500">Devlopment</div>' +
-        '<div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700"><div class="bg-red-600 h-2.5 rounded-full" style="width: 75%"></div></div>' +
-        '<div class="mb-1 text-base font-medium text-green-700 dark:text-green-500">Ideas</div>' +
-        '<div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700"><div class="bg-green-600 h-2.5 rounded-full" style="width: 25%"></div></div>' +
-        '<div class="mb-1 text-base font-medium text-violet-700 dark:text-violet-500">Testing</div>' +
-        '<div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700"><div class="bg-violet-600 h-2.5 rounded-full" style="width: 45%"></div></div>' +
-        '<div class="mb-1 text-base font-medium text-orange-700 dark:text-orange-500">Mrketing</div>' +
-        '<div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700"><div class="bg-orange-600 h-2.5 rounded-full" style="width: 85%"></div></div>' +
-        '<div class="radial-progress" style="--value:70; --size:12rem; --thickness: 2rem;">70%</div>'
+      html: '<div className="mb-1 text-base font-medium text-blue-700 dark:text-blue-500">Design</div>' +
+        '<div className="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700"><div className="bg-blue-600 h-2.5 rounded-full" style="width: 45%"></div></div>' +
+        '<div className="mb-1 text-base font-medium text-red-700 dark:text-red-500">Devlopment</div>' +
+        '<div className="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700"><div className="bg-red-600 h-2.5 rounded-full" style="width: 75%"></div></div>' +
+        '<div className="mb-1 text-base font-medium text-green-700 dark:text-green-500">Ideas</div>' +
+        '<div className="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700"><div className="bg-green-600 h-2.5 rounded-full" style="width: 25%"></div></div>' +
+        '<div className="mb-1 text-base font-medium text-violet-700 dark:text-violet-500">Testing</div>' +
+        '<div className="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700"><div className="bg-violet-600 h-2.5 rounded-full" style="width: 45%"></div></div>' +
+        '<div className="mb-1 text-base font-medium text-orange-700 dark:text-orange-500">Mrketing</div>' +
+        '<div className="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700"><div className="bg-orange-600 h-2.5 rounded-full" style="width: 85%"></div></div>' +
+        '<div className="radial-progress" style="--value:70; --size:12rem; --thickness: 2rem;">70%</div>'
     })
   }
 
@@ -120,9 +120,9 @@ const MenuRooms = () => {
       </div>
 
       <div className="text-gray-400 font-monserrat text-xl font-semibold  mt-4">
-        <div class="flex flex-row items-center ">
+        <div className="flex flex-row items-center ">
           <p>Project progress - 26%</p>
-          <div class="cursor-pointer hover:text-back dark:hover:text-white hover:scale-105 hover:shadow-lg transition-all bg-white dark:bg-bars ml-7 rounded-md pl-2 pr-2 text-gray-400 font-extralight pt-1 pb-1" onClick={seeProgres}>See progress </div>
+          <div className="cursor-pointer hover:text-back dark:hover:text-white hover:scale-105 hover:shadow-lg transition-all bg-white dark:bg-bars ml-7 rounded-md pl-2 pr-2 text-gray-400 font-extralight pt-1 pb-1" onClick={seeProgres}>See progress </div>
         </div>
 
       </div>

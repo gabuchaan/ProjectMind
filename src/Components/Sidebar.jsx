@@ -33,8 +33,7 @@ const Sidebar = (props) => {
         const { value: formValues } = await Swal.fire({
             title: 'Create Project',
             html:
-                '<input id="projectName" class="swal2-input" placeholder="Project name">',
-            // + '<input id="ProjectDescription" class="swal2-input" placeholder="Project description">',
+                '<input id="projectName" className="swal2-input" placeholder="Project name">',
             focusConfirm: false,
             preConfirm: () => {
                 const projectName = document.getElementById('projectName').value;
@@ -68,7 +67,7 @@ const Sidebar = (props) => {
         <div>
             <div className="bg-white dark:bg-bars justify-center items-center side-menu  top-0 left-0 fixed w-16 h-screen flex flex-col  shadow-lg">
                 {/*NOTIFICATION BUTTON*/}
-                <AiOutlineBell onClick={handleClick3} size={27} class="text-gray-400 hover:text-gray-500 dark:hover:text-white hover:scale-105 cursor-pointer transition-all fixed top-20" />
+                <AiOutlineBell onClick={handleClick3} size={27} className="text-gray-400 hover:text-gray-500 dark:hover:text-white hover:scale-105 cursor-pointer transition-all fixed top-20" />
                 <button className='fixed bottom-24'>
                     <label className="swap swap-rotate scale-75" >
                         <input type="checkbox" />
@@ -81,8 +80,8 @@ const Sidebar = (props) => {
                 {/*NOTIFICATION DIV (HIDDEN)*/}
                 {showNotifications && (
                     <>
-                        <div class="absolute left-16 w-screen h-screen z-40 bg-black opacity-50 transition-all"></div>
-                        <div class="absolute bg-gray-300 dark:bg-gray-700 z-50 w-80 h-auto top-20 left-20 rounded-lg p-3 space-y-2 ">
+                        <div className="absolute left-16 w-screen h-screen z-40 bg-black opacity-50 transition-all"></div>
+                        <div className="absolute bg-gray-300 dark:bg-gray-700 z-50 w-80 h-auto top-20 left-20 rounded-lg p-3 space-y-2 ">
                             {/*NOTIFICATION POPUP*/}
 
                             {
@@ -98,10 +97,12 @@ const Sidebar = (props) => {
                         </div></>)}
 
                 <div className="justify-center items-center flex flex-col space-y-3">
-                    {props.projects.map((project) => {
+                    {props.projects.map((project, index) => {
                         return (
                             <ProjectIcon
-                                avatar_image={project.data.image}
+                                project={project}
+                                onClick={props.onClick}
+                                key={index}
                             />
                         )
                     })

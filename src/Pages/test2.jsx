@@ -35,12 +35,32 @@ const Test2 = () => {
   const [invitation, setInvitation] = useState({});
 
   useEffect(() => {
-    getRecentProject(authUser.uid);
-    getProjects(authUser.uid);
-    getCurrentUser(authUser.uid);
-    setUserId(authUser.uid);
-    getInvitationProjects(authUser.uid);
-  }, [])
+    if (authUser) {
+      getRecentProject(authUser.uid);
+      getCurrentUser(authUser.uid);
+      setUserId(authUser.uid);
+
+      db.collection("users").doc(authUser.uid)
+        .onSnapshot((snapShot) => {
+          getInvitationProjects(authUser.uid);
+        });
+
+      db.collection("users").doc(authUser.uid).collection("projects")
+        .onSnapshot((snapShot) => {
+          getProjects(authUser.uid);
+        });
+    }
+
+
+
+    console.log(invitation);
+    if (Object.keys(invitation).length === 0) {
+      console.log('obj is empty');
+    } else {
+      console.log('obj is not empty');
+    }
+  }, [authUser]);
+
   //------------------------------------------
   //--------------- FUNCTIONS ----------------
   //------------------------------------------
@@ -59,17 +79,15 @@ const Test2 = () => {
   }
 
   const getRecentProject = async (uid) => {
-    const docRef = collection(db, "projects");
-    const q = query(docRef, where("admin", "==", uid), orderBy("last_connection_at", "desc"), limit(1));
+    const userProjectsRef = collection(db, "users", uid, "projects");
+    const q = query(userProjectsRef, orderBy("last_connection_at", "desc"), limit(1));
     getDocs(q).then((snapshot) => {
-      let result = [];
-      let id = "";
-      snapshot.docs.forEach((doc) => {
-        result.push(doc.data());
-        id = doc.id;
-      });
-      setProject(result[0]);
-      setProjectId(id);
+      const projectRef = doc(db, "projects", snapshot.docs[0]._document.data.value.mapValue.fields.project.stringValue);
+      getDoc(projectRef)
+        .then((projectData) => {
+          setProject(projectData.data());
+          setProjectId(projectData.id);
+        });
     })
   }
 
@@ -96,6 +114,11 @@ const Test2 = () => {
     });
   }
 
+  function handleSelectProject(project) {
+    setProject(project.data);
+    setProjectId(project.id);
+  }
+
   //------------------------------------------
   //--------------- COMPONENT ----------------
   //------------------------------------------
@@ -107,6 +130,7 @@ const Test2 = () => {
         user={authUser}
         userId={userId}
         invitation={invitation}
+        onClick={handleSelectProject}
       />
       {/*MAIN CONTAINER*/}
       <BsGear size={23} onClick={toggleEditProject} className='fixed top-36 left-5 hover:text-white transition-all cursor-pointer' />
@@ -130,15 +154,15 @@ const Test2 = () => {
             <EditProject />
           ) : (
             <ChatBox
-            project={project}
-            projectId={projectId}
-            authUser={authUser}
-            user={user}
-            userId={userId}
+              project={project}
+              projectId={projectId}
+              authUser={authUser}
+              user={user}
+              userId={userId}
             />
           )}
 
-          
+
 
 
 
