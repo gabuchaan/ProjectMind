@@ -97,6 +97,8 @@ const ChatBox = (props) => {
     setMensajeInput(event.target.value);
   };
 
+  const messageContainerRef = useRef(null);
+
   const handleSendMessage = async () => {
 
     const messageObj = {
@@ -109,6 +111,8 @@ const ChatBox = (props) => {
     const docRef = await db.collection("messages").doc(props.projectId).collection("messages").add(messageObj);
 
     document.getElementById("inputMessage").value = "";
+    messageContainerRef.current.scrollTo(0, messageContainerRef.current.scrollHeight);
+
   };
 
 
@@ -135,7 +139,7 @@ const ChatBox = (props) => {
         </div>
 
         {/*MESSAGES----------------*/}
-        <div className="overflow-y-scroll scrollbar-hidden scrollbar-hide pt-5 flex-1 float-left">
+        <div ref={messageContainerRef} className="overflow-y-scroll scrollbar-hidden scrollbar-hide pt-5 flex-1 float-left">
           {messages.map((me, index) => {
             return <Message message={me} 
             user={props.user}
