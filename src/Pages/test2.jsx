@@ -6,12 +6,13 @@ import ChatBox from '../Components/Chatbox';
 import Topbar from '../Components/Topbar';
 import Sidebar from '../Components/Sidebar';
 import Rightmenu from '../Components/Rightmenu';
-import { getDoc, doc, getDocs, collection, query, where, orderBy, limit } from "firebase/firestore";
+import { getDoc, doc, getDocs, collection, query, where, orderBy, limit, updateDoc } from "firebase/firestore";
 import { auth, db } from "../firebase.js";
 import { getUser, getAuthUser } from "../Js/user";
 import { getInvitedProjects } from "../Js/project";
 import EditProject from '../Components/EditProject';
 import { BsGear } from 'react-icons/bs';
+import firebase from 'firebase/compat/app';
 
 const Test2 = () => {
   const [showEditProject, setShowEditProject] = useState(false);
@@ -33,10 +34,17 @@ const Test2 = () => {
   const [userId, setUserId] = useState("");
   const [invitation, setInvitation] = useState({});
   const [member, setMember] = useState([]);
+  const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
     if (authUser) {
       getRecentProject(authUser.uid);
+    }
+
+  }, [])
+
+  useEffect(() => {
+    if (authUser) {
       getCurrentUser(authUser.uid);
       setUserId(authUser.uid);
 
@@ -49,6 +57,7 @@ const Test2 = () => {
         .onSnapshot((snapShot) => {
           getProjects(authUser.uid);
         });
+
     }
 
     if (projectId) {
@@ -63,6 +72,15 @@ const Test2 = () => {
           })
           setMember(memberArray);
         })
+
+      db.collection('projects').doc(projectId).collection('tasks')
+      .onSnapshot((snapShot) => {
+        let arrayTasks = [];
+        snapShot.forEach((task) => {
+          arrayTasks.push(task.data());
+        })
+        setTasks(arrayTasks);
+      });
     }
 
     if (Object.keys(invitation).length === 0) {
@@ -130,6 +148,13 @@ const Test2 = () => {
   function handleSelectProject(project) {
     setProject(project.data);
     setProjectId(project.id);
+    console.log(project.id);
+
+    const docRef = db.collection("users").doc(userId).collection("projects").doc(project.id);
+    docRef.update({
+      last_connection_at: firebase.firestore.FieldValue.serverTimestamp(),
+    })
+
   }
 
   //------------------------------------------
@@ -191,6 +216,7 @@ const Test2 = () => {
               authUser={authUser}
               user={user}
               userId={userId}
+              tasks={tasks}
             />
           </div>
         </div>
