@@ -11,6 +11,7 @@ import { inviteUser } from "../Js/project";
 import { log } from 'util';
 import { collection } from 'firebase/firestore';
 import firebase from 'firebase/compat/app';
+import { propTypes } from 'react-bootstrap/esm/Image';
 
 
 /**
@@ -104,6 +105,8 @@ const ChatBox = (props) => {
     const messageObj = {
       message: message,
       senderId: props.userId,
+      avatar: props.user.avatar,
+      name: props.user.name,
       created_at: firebase.firestore.FieldValue.serverTimestamp(),
     }
 

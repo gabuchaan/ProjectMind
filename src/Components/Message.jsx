@@ -40,15 +40,15 @@ const Message = (props) => {
     <>
       <div className="chat chat-start ml-2">
         <div className="chat-image avatar">
-          <div className="w-10 rounded-full ring-2 ring-gray-500 dark:ring-gray-200">
-            <img src={props.user.avatar} />
+          <div className="w-10 rounded-full ring-2 ring-gray-400">
+            <img src={props.message.avatar} />
           </div>
         </div>
         <div className="chat-header">
-          <div className='dark:text-white text-black'>
-            {props.user.name}
+          <div className='text-black dark:text-white'>
+            {props.message.name}
           </div>
-
+          
         </div>
         <div className="chat-bubble chat-bubble-accent">
           {props.message.message}
