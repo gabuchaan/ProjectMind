@@ -35,10 +35,7 @@ const Rightmenu = (props) => {
     //------------------------------------------
     return (
         <>
-            <div className='w-full h-16 rounded-md bg-white dark:bg-boxes flex items-center'>
-                <input className='pl-3 text-black dark:text-white rounded-md bg-wback dark:bg-bars border ml-3 w-72 h-8' type="text" />
-                <div className='cursor-pointer bg-blue-400 text-white rounded-md pl-2 pr-2 h-8 flex items-center ml-4'>Create task</div>
-            </div>
+            
             <div className="w-full h-auto pt-5 bg-white shadow-lg mt-4 dark:bg-boxes rounded-md flex flex-col justify-center items-center p-3">
                 <div className="text-back dark:text-white font-monserrat text-lg font-semibold">Tasks</div>
                 <div className="h-72 scrollbar-hide overflow-x-hidden w-full mt-3 space-y-1 overflow-y-auto">
