@@ -5,6 +5,8 @@ import ProjectIcon from "./ProjectIcon";
 import InvitationNotification from '../Components/InvitationNotification';
 import { checkIfNotEmpty } from '../Js/common';
 import { createProject } from '../Js/project';
+import { RiLogoutBoxLine } from "react-icons/ri";
+
 
 const Sidebar = (props) => {
 
@@ -105,7 +107,8 @@ const Sidebar = (props) => {
                     })
                     }
                 </div>
-                <div className="bg-gray-300 dark:bg-boxes w-12 h-12 rounded-md hover:scale-105 hover:shadow-lg transition-all hover:bg-gray-500 justify-center mt-4 items-center flex text-white" onClick={createProjectForm}> <BsPlusCircle size={22} /> </div>
+                <div className="bg-gray-300 dark:bg-boxes w-12 h-12 rounded-md hover:scale-105 hover:shadow-lg transition-all dark:hover:bg-gray-500 justify-center mt-4 items-center flex text-gray-700 dark:text-white cursor-pointer" onClick={createProjectForm}> <BsPlusCircle size={22} /> </div>
+                <div className="fixed bottom-20 bg-gray-300 dark:bg-boxes w-12 h-12 rounded-md hover:scale-105 hover:shadow-lg transition-all hover:bg-gray-500 justify-center mt-4 items-center flex text-gray-700 dark:text-white cursor-pointer" > <RiLogoutBoxLine size={22} /> </div>
 
                 <div onClick={() => toggleMenu("menu-profile")} className="cursor-pointer fixed bottom-4  bg-gray-300 dark:bg-boxes w-12 h-12 rounded-md hover:scale-105 hover:shadow-lg transition-all hover:bg-gray-500 justify-center items-center flex text-white" >
                     {/* <AiOutlineUser size={22}/> */}

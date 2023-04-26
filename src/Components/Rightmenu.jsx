@@ -38,7 +38,8 @@ const Rightmenu = (props) => {
             
             <div className="w-full h-auto pt-5 bg-white shadow-lg mt-4 dark:bg-boxes rounded-md flex flex-col justify-center items-center p-3">
                 <div className="text-back dark:text-white font-monserrat text-lg font-semibold">Tasks</div>
-                <div className="h-72 scrollbar-hide overflow-x-hidden w-full mt-3 space-y-1 overflow-y-auto">
+                <div className="h-auto max-h-72 scrollbar-hide overflow-x-hidden w-full mt-3 space-y-1 overflow-y-auto">
+                                      
                     {
                         props.tasks.map((task, index) => {
                             if (props.userId === task.data.asignedUser) {
