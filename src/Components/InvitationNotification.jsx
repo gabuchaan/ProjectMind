@@ -20,10 +20,15 @@ const InvitationNotification = (props) => {
         const subCollectionRef = parentDocRef.collection("projects");
 
         // const invitedUserProjectsRef = invitedUserRef.collection("projects");
-        subCollectionRef.add({
+        subCollectionRef.doc(props.project[0].id).set({
             project: props.project[0].id,
             last_connection_at: firebase.firestore.FieldValue.serverTimestamp()
         });
+        // subCollectionRef.add({
+        //     project: props.project[0].id,
+        //     last_connection_at: firebase.firestore.FieldValue.serverTimestamp()
+        // });
+
         // await addDoc(collection(db, "users").doc(props.userId).collection("projects"), {
         //     project: props.project[0].id,
         //     last_connection_at: firebase.firestore.FieldValue.serverTimestamp()

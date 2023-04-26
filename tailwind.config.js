@@ -26,6 +26,7 @@ module.exports = {
         subtext: '#8693a5',
         bord: '#343e59',
         azult: '#3a8cf4',
+        fondos: '#00042D',
       },
     },
   },

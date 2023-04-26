@@ -6,13 +6,13 @@ import ChatBox from '../Components/Chatbox';
 import Topbar from '../Components/Topbar';
 import Sidebar from '../Components/Sidebar';
 import Rightmenu from '../Components/Rightmenu';
-import { getDoc, doc, getDocs, collection, query, where, orderBy, limit } from "firebase/firestore";
+import { getDoc, doc, getDocs, collection, query, where, orderBy, limit, updateDoc } from "firebase/firestore";
 import { auth, db } from "../firebase.js";
 import { getUser, getAuthUser } from "../Js/user";
 import { getInvitedProjects } from "../Js/project";
 import EditProject from '../Components/EditProject';
 import { BsGear } from 'react-icons/bs';
-import RightMenuTools from '../Components/RightMenuTools';
+import firebase from 'firebase/compat/app';
 
 const Test2 = () => {
   const [showEditProject, setShowEditProject] = useState(false);
@@ -33,10 +33,18 @@ const Test2 = () => {
   const [user, setUser] = useState({});
   const [userId, setUserId] = useState("");
   const [invitation, setInvitation] = useState({});
+  const [member, setMember] = useState([]);
+  const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
     if (authUser) {
       getRecentProject(authUser.uid);
+    }
+
+  }, [])
+
+  useEffect(() => {
+    if (authUser) {
       getCurrentUser(authUser.uid);
       setUserId(authUser.uid);
 
@@ -49,15 +57,38 @@ const Test2 = () => {
         .onSnapshot((snapShot) => {
           getProjects(authUser.uid);
         });
+
     }
 
-    console.log(invitation);
+    if (projectId) {
+      db.collection('projects').doc(projectId)
+        .onSnapshot((snapShot) => {
+          let memberArray = [];
+          snapShot.data().member.map(async (per) => {
+
+            const docRef = doc(db, "users", per);
+            const docSnap = await getDoc(docRef);
+            memberArray.push(docSnap.data())
+          })
+          setMember(memberArray);
+        })
+
+      db.collection('projects').doc(projectId).collection('tasks')
+      .onSnapshot((snapShot) => {
+        let arrayTasks = [];
+        snapShot.forEach((task) => {
+          arrayTasks.push(task.data());
+        })
+        setTasks(arrayTasks);
+      });
+    }
+
     if (Object.keys(invitation).length === 0) {
       console.log('obj is empty');
     } else {
       console.log('obj is not empty');
     }
-  }, [authUser]);
+  }, [authUser, projectId]);
 
   //------------------------------------------
   //--------------- FUNCTIONS ----------------
@@ -103,6 +134,8 @@ const Test2 = () => {
     setInvitation(projects);
   }
 
+
+
   /**
  * Funcion para obtener el usuario
  */
@@ -115,6 +148,13 @@ const Test2 = () => {
   function handleSelectProject(project) {
     setProject(project.data);
     setProjectId(project.id);
+    console.log(project.id);
+
+    const docRef = db.collection("users").doc(userId).collection("projects").doc(project.id);
+    docRef.update({
+      last_connection_at: firebase.firestore.FieldValue.serverTimestamp(),
+    })
+
   }
 
   //------------------------------------------
@@ -149,7 +189,14 @@ const Test2 = () => {
 
 
           {showEditProject ? (
-            <EditProject />
+            <EditProject
+              project={project}
+              projectId={projectId}
+              authUser={authUser}
+              user={user}
+              userId={userId}
+              member={member}
+            />
           ) : (
             <ChatBox
               project={project}
@@ -169,6 +216,7 @@ const Test2 = () => {
               authUser={authUser}
               user={user}
               userId={userId}
+              tasks={tasks}
             />
           </div>
         </div>

@@ -23,7 +23,7 @@ async function setInitProject(uid, name) {
     const res = await db.collection('projects').add(data);
 
     //Crear una collection en users
-    const userProjectRef = await db.collection('users').doc(uid).collection('projects').add({project: res.id, last_connection_at: firebase.firestore.FieldValue.serverTimestamp()});
+    const userProjectRef = await db.collection('users').doc(uid).collection('projects').doc(res.id).set({project: res.id, last_connection_at: firebase.firestore.FieldValue.serverTimestamp()});
 }
 
 /**
@@ -58,7 +58,7 @@ async function createProject(uid, projectName) {
     const res = await db.collection('projects').add(data);
 
     //Crear un projecto en users
-    const userProjectRef = await db.collection('users').doc(uid).collection('projects').add({project: res.id, last_connection_at: firebase.firestore.FieldValue.serverTimestamp()});
+    const userProjectRef = await db.collection('users').doc(uid).collection('projects').doc(res.id).set({project: res.id, last_connection_at: firebase.firestore.FieldValue.serverTimestamp()});
     const messageProjectRef = await db.collection('messages').doc(res.id).set({project: projectName});
 
 }
