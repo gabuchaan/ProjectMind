@@ -44,6 +44,8 @@ const Rightmenu = (props) => {
                 <div className="h-72 scrollbar-hide overflow-x-hidden w-full mt-3 space-y-1 overflow-y-auto">
                     {
                         props.tasks.map((task, index) => {
+                            console.log(props.userId);
+                            console.log(task.data.asignedUser);
                             if (props.userId === task.data.asignedUser) {
                                 return <Task
                                     task={task}
