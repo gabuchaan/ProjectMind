@@ -131,23 +131,23 @@ const ChatBox = (props) => {
             <div id='roomname' className="intro-y text-md ml-5 font-semibold text-gray-400">Ideas</div>
           </div>
 
-          <div className="flex flex-row ml-auto text-gray-400 space-x-3">
+          <div className="flex flex-row ml-auto text-gray-500 dark:text-gray-400 space-x-3">
 
-            <Link  to="/calls">
-              <BsCamera className='hover:text-white transition-all' size={23} />
+            <Link to="/calls">
+              <BsCamera className='dark:hover:text-gray-100 transition-all' size={23} />
             </Link>
-            <BsMic className='cursor-pointer hover:text-white transition-all' size={23} />
-            <AiOutlineUserAdd className='cursor-pointer hover:text-white transition-all' size={23} onClick={addUser} />
+            <BsMic className='cursor-pointer dark:hover:text-gray-100  transition-all' size={23} />
+            <AiOutlineUserAdd className='cursor-pointer dark:hover:text-gray-100 transition-all' size={23} onClick={addUser} />
           </div>
         </div>
 
         {/*MESSAGES----------------*/}
         <div ref={messageContainerRef} className="overflow-y-scroll scrollbar-hidden scrollbar-hide pt-5 flex-1 float-left">
           {messages.map((me, index) => {
-            return <Message message={me} 
-            user={props.user}
-            userId={props.userId}
-            key={index}/>
+            return <Message message={me}
+              user={props.user}
+              userId={props.userId}
+              key={index} />
           }
           )}
 
