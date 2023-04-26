@@ -40,7 +40,7 @@ const TaskManagement = (props) => {
                 name: taskName,
                 state: false,
                 created_at: firebase.firestore.FieldValue.serverTimestamp(),
-                asignedUser: props.userId,
+                asignedUser: select.value,
                 project: props.projectId
             }
             db.collection("tasks").add(taskData).then((res) => {
@@ -72,8 +72,7 @@ const TaskManagement = (props) => {
                 <select id='selectMember' className='ml-3 bg-transparent border rounded-md pl-3' type="text" placeholder='Member' >
                     {
                         props.member.map((mem) => {
-                            console.log(mem);
-                            return <option value="">{mem.name}</option>
+                            return <option value={mem.uid}>{mem.name}</option>
                         })
                     }
                 </select>

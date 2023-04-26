@@ -42,6 +42,8 @@ const Rightmenu = (props) => {
                                       
                     {
                         props.tasks.map((task, index) => {
+                            console.log(props.userId);
+                            console.log(task.data.asignedUser);
                             if (props.userId === task.data.asignedUser) {
                                 return <Task
                                     task={task}
