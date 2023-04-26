@@ -2,7 +2,16 @@ import React from "react";
 import { IoArrowBackCircleSharp } from "react-icons/io5";
 import { AiFillEdit } from "react-icons/ai";
 
-const MenuProfile = () => {
+/**
+ * 
+ * @param {
+ * authUser={authUser}
+ * user={user}
+ * userId={userId}
+ * } props 
+ * @returns 
+ */
+const MenuProfile = (props) => {
     //------------------------------------------
     //--------------- VARIABLES ----------------
     //------------------------------------------
@@ -17,15 +26,15 @@ const MenuProfile = () => {
     const toggleMenu = (menuId) => {
         const menuMain = document.getElementById("menu-main");
         const menuProfile = document.getElementById("menu-profile");
-    
+
         if (menuId === "menu-main") {
-          menuMain.classList.remove("hidden");
-          menuProfile.classList.add("hidden");
+            menuMain.classList.remove("hidden");
+            menuProfile.classList.add("hidden");
         } else if (menuId === "menu-profile") {
-          menuMain.classList.add("hidden");
-          menuProfile.classList.remove("hidden");
+            menuMain.classList.add("hidden");
+            menuProfile.classList.remove("hidden");
         }
-      };
+    };
     //------------------------------------------
     //--------------- COMPONENT ----------------
     //------------------------------------------
@@ -35,14 +44,13 @@ const MenuProfile = () => {
 
             <div className='bg-white dark:bg-boxes w-full h-64 mt-4 rounded-md items-center flex flex-col'>
                 <div className='bg-wback border rounded-full w-44 h-44 mt-5'></div>
-                <div className="intro-y text-xl font-medium text-black dark:text-white mt-4">Username</div>
+                <div className="intro-y text-xl font-medium text-black dark:text-white mt-4">{props.user.name}</div>
             </div>
             <div className='bg-boxes w-full h-auto mt-3 rounded-md items-center flex flex-col p-3'>
                 <div className='flex flex-row space-x-2 w-full'>
-                    <input className='bg-bars w-full h-10 rounded-md flex items-center pl-3 text-white' placeholder='Yasser'></input>
-                    <input className='bg-bars w-full h-10 rounded-md flex items-center pl-3 text-white' placeholder='Yasserskdam2'></input>
+                    <input className='bg-bars w-full h-10 rounded-md flex items-center pl-3 text-white' placeholder={props.user.name}></input>
                 </div>
-                <input className='bg-bars w-full h-10 rounded-md mt-2 flex items-center pl-3 text-white' placeholder='Yasserskdam2@gmail.com'></input>
+                <input className='bg-bars w-full h-10 rounded-md mt-2 flex items-center pl-3 text-white' placeholder={props.user.email}></input>
                 <input className='bg-bars w-full h-10 rounded-md mt-2 pl-3 items-center flex text-white' placeholder='************'></input>
             </div>
             <div className='bg-boxes w-full h-auto mt-3 p-3 rounded-md items-center justify-center flex flex-col'>

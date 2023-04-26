@@ -8,6 +8,7 @@ import { createProject } from '../Js/project';
 
 const Sidebar = (props) => {
 
+    console.log(props);
     const Swal = require('sweetalert2')
     const [darkMode, setDarkMode] = useState(false);
     const [showNotifications, setShowNotifications] = useState(false);
@@ -99,8 +100,6 @@ const Sidebar = (props) => {
                                 onClick={props.onClick}
                                 key={index}
                             />
-
-
                         )
                     })
                     }

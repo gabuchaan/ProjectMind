@@ -167,7 +167,7 @@ const Test2 = () => {
       <Topbar />
       <Sidebar
         projects={projects}
-        user={authUser}
+        user={user}
         userId={userId}
         invitation={invitation}
         onClick={handleSelectProject}
@@ -185,7 +185,11 @@ const Test2 = () => {
           {/*EDITAR PERFIL*/}
 
           <div id='menu-profile' className='hidden side-content col-span-12 xl:col-span-3 -mt-16 xl:mt-0 pt-20 xl:-mr-6 px-6 xl:pt-6 side-content--active flex-col overflow-hidden '>
-            <MenuProfile />
+            <MenuProfile
+            authUser={authUser}
+            user={user}
+            userId={userId}
+            />
           </div>
           {/*CHAT----------------------------*/}
 
