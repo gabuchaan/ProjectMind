@@ -173,7 +173,7 @@ const Test2 = () => {
         onClick={handleSelectProject}
       />
       {/*MAIN CONTAINER*/}
-      <BsGear size={23} onClick={toggleEditProject} className='fixed top-36 left-5 hover:text-white transition-all cursor-pointer' />
+      <BsGear size={26} onClick={toggleEditProject} className='fixed top-36 left-5 text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white hover:scale-105  transition-all cursor-pointer' />
 
       <div className="md:pl-16 pt-16">
         <div className="bg-wback dark:bg-back -mt-16 ml-auto xl:-ml-16 mr-auto xl:pl-16 pt-16 xl:h-screen w-auto sm:w-3/5 xl:w-auto grid grid-cols-12 gap-6">
