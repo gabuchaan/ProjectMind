@@ -45,6 +45,7 @@ const Rightmenu = (props) => {
                         props.tasks.map((task, index) => {
                             return <Task 
                                 task={task}
+                                projectId={props.projectId}
                                 key={index}
                             />
                         })
