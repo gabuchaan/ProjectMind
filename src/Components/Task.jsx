@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 
 /**
  * 
@@ -13,7 +13,7 @@ const Task = (props) => {
         //------------------------------------------
         //--------------- VARIABLES ----------------
         //------------------------------------------
-    
+        const inputRef = useRef(null);
         //------------------------------------------
         //----------------- HOOKS ------------------
         //------------------------------------------
@@ -21,6 +21,10 @@ const Task = (props) => {
         //------------------------------------------
         //--------------- FUNCTIONS ----------------
         //------------------------------------------
+        function handlerChecked() {
+            console.log(inputRef.current.checked);
+
+        }
     
         //------------------------------------------
         //--------------- COMPONENT ----------------
@@ -29,9 +33,9 @@ const Task = (props) => {
     return (
         <div className="transition-all hover:scale-105 hover:shadow-lg cursor-pointer bg-wback border border-gray-300 dark:border-gray-700 dark:bg-bars w-full h-12 rounded-md flex flex-row items-center pl-3 pr-3 space-x-3">
             <div className="form-control">
-                <input type="checkbox"  className="checkbox checkbox-primary" />
+                <input  ref={inputRef} type="checkbox"  className="checkbox checkbox-primary" onChange={handlerChecked} />
             </div>
-            <div className="text-back dark:text-white font-extralight">{props.task.name}</div>
+            <div className="text-back dark:text-white font-extralight">{props.task.data.name}</div>
         </div>
     )
 }

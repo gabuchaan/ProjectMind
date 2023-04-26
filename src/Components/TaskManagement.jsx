@@ -43,8 +43,9 @@ const TaskManagement = (props) => {
                 asignedUser: props.userId,
                 project: props.projectId
             }
-            db.collection("tasks").add(taskData);
-            db.collection("projects").doc(props.projectId).collection('tasks').add(taskData);
+            db.collection("tasks").add(taskData).then((res) => {
+                db.collection("projects").doc(props.projectId).collection('tasks').doc(res.id).set(taskData);
+            });
             
             //Reset input TaskName
             document.getElementById("taskName").value = "";

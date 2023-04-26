@@ -42,9 +42,10 @@ const Rightmenu = (props) => {
                 <div className="text-back dark:text-white font-monserrat text-lg font-semibold">Tasks</div>
                 <div className="h-auto w-full mt-3 space-y-1">
                     {
-                        props.tasks.map((task) => {
+                        props.tasks.map((task, index) => {
                             return <Task 
                                 task={task}
+                                key={index}
                             />
                         })
                     }
