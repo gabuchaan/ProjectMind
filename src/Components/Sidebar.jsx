@@ -96,7 +96,7 @@ const Sidebar = (props) => {
                             }
                         </div></>)}
 
-                <div className="justify-center items-center flex flex-col space-y-3">
+                <div className="justify-center items-center flex flex-col space-y-3 overflow-x-hidden scrollbar-hide  h-2/4">
                     {props.projects.map((project, index) => {
                         return (
                             <ProjectIcon
@@ -104,11 +104,14 @@ const Sidebar = (props) => {
                                 onClick={props.onClick}
                                 key={index}
                             />
+
+
                         )
                     })
                     }
-                    <div className="bg-gray-300 dark:bg-boxes w-12 h-12 rounded-md hover:scale-105 hover:shadow-lg transition-all hover:bg-gray-500 justify-center items-center flex text-white" onClick={createProjectForm}> <BsPlusCircle size={22} /> </div>
                 </div>
+                <div className="bg-gray-300 dark:bg-boxes w-12 h-12 rounded-md hover:scale-105 hover:shadow-lg transition-all hover:bg-gray-500 justify-center mt-4 items-center flex text-white" onClick={createProjectForm}> <BsPlusCircle size={22} /> </div>
+
                 <div onClick={() => toggleMenu("menu-profile")} className="cursor-pointer fixed bottom-4  bg-gray-300 dark:bg-boxes w-12 h-12 rounded-md hover:scale-105 hover:shadow-lg transition-all hover:bg-gray-500 justify-center items-center flex text-white" >
                     {/* <AiOutlineUser size={22}/> */}
                     <img src={props.user.avatar} alt="" />

@@ -43,17 +43,20 @@ const Rightmenu = (props) => {
                 <div className="h-auto w-full mt-3 space-y-1">
                     {
                         props.tasks.map((task) => {
-                            return <Task 
+                            return <Task
                                 task={task}
                             />
                         })
                     }
                 </div>
-
             </div>
             <div className="w-full h-auto p-3 bg-white shadow-lg dark:bg-boxes rounded-md mt-3 flex flex-col items-center">
                 <div className="text-back dark:text-white font-semibold text-lg">Members</div>
-                <div className="w-full h-auto flex gap-2 mt-3">
+                <div className="w-96 overflow-x-scroll scrollbar-hide h-auto flex gap-2 mt-3">
+                    <MemberCard />
+                    <MemberCard />
+                    <MemberCard />
+                    <MemberCard />
                     <MemberCard />
                     <MemberCard />
                     <MemberCard />
