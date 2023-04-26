@@ -1,5 +1,6 @@
 import React from 'react'
 import Task from './Task';
+import Task2 from './Task2';
 import MemberCard from './MemberCard'
 import SharedFile from './SharedFile';
 
@@ -40,7 +41,8 @@ const Rightmenu = (props) => {
             </div>
             <div className="w-full h-auto pt-5 bg-white shadow-lg mt-4 dark:bg-boxes rounded-md flex flex-col justify-center items-center p-3">
                 <div className="text-back dark:text-white font-monserrat text-lg font-semibold">Tasks</div>
-                <div className="h-auto w-full mt-3 space-y-1">
+                <div className="h-72 scrollbar-hide overflow-x-hidden w-full mt-3 space-y-1 overflow-y-auto">
+                    <Task2 />
                     {
                         props.tasks.map((task) => {
                             return <Task

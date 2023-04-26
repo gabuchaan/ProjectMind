@@ -3,13 +3,8 @@ import { AiOutlineBell } from "react-icons/ai";
 import { BsPlusCircle } from "react-icons/bs";
 import ProjectIcon from "./ProjectIcon";
 import InvitationNotification from '../Components/InvitationNotification';
-import { getDoc, doc, getDocs, collection, query, where, orderBy, limit } from "firebase/firestore";
 import { checkIfNotEmpty } from '../Js/common';
-import { getAuthUser, getUserFromAuth } from "../Js/user";
-import { createProject, getAllProjects } from '../Js/project';
-import { log } from 'util';
-import { propTypes } from 'react-bootstrap/esm/Image';
-import { BsCamera, BsMic, BsEmojiSmile, BsFileEarmarkPdfFill, BsCloudArrowUp, BsGear } from "react-icons/bs";
+import { createProject } from '../Js/project';
 
 const Sidebar = (props) => {
 
