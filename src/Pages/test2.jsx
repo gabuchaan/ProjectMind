@@ -77,7 +77,7 @@ const Test2 = () => {
       .onSnapshot((snapShot) => {
         let arrayTasks = [];
         snapShot.forEach((task) => {
-          arrayTasks.push(task.data());
+          arrayTasks.push({id: task.id ,data: task.data()});
         })
         setTasks(arrayTasks);
       });
@@ -119,6 +119,8 @@ const Test2 = () => {
         });
     })
   }
+
+  console.log(tasks);
 
   const getInvitationProjects = async (uid) => {
     let projects = [];

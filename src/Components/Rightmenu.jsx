@@ -44,9 +44,11 @@ const Rightmenu = (props) => {
                 <div className="h-72 scrollbar-hide overflow-x-hidden w-full mt-3 space-y-1 overflow-y-auto">
                     <Task2 />
                     {
-                        props.tasks.map((task) => {
-                            return <Task
+                        props.tasks.map((task, index) => {
+                            return <Task 
                                 task={task}
+                                projectId={props.projectId}
+                                key={index}
                             />
                         })
                     }
