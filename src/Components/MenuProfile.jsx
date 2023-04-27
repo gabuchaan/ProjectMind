@@ -8,6 +8,7 @@ import { AiFillEdit } from "react-icons/ai";
  * authUser={authUser}
  * user={user}
  * userId={userId}
+ * projects={projects}
  * } props 
  * @returns 
  */
@@ -50,32 +51,20 @@ const MenuProfile = (props) => {
                 <div className='flex flex-row space-x-2 w-full'>
                     <input className='bg-bars w-full h-10 rounded-md flex items-center pl-3 text-white' placeholder={props.user.name}></input>
                 </div>
-                <input className='bg-bars w-full h-10 rounded-md mt-2 flex items-center pl-3 text-white' placeholder={props.user.email}></input>
+                <input className='bg-bars w-full h-10 rounded-md mt-2 flex items-center pl-3 text-white' placeholder={props.user.e_mail}></input>
                 <input className='bg-bars w-full h-10 rounded-md mt-2 pl-3 items-center flex text-white' placeholder='************'></input>
             </div>
             <div className='bg-boxes w-full h-auto mt-3 p-3 rounded-md items-center justify-center flex flex-col'>
                 <div className="intro-y text-xl font-medium text-white">Projects</div>
                 <div className='mt-3 flex gap-2 flex-wrap justify-center'>
-                    <div className='w-auto h-auto p-2 bg-bars rounded-md flex flex-col items-center justify-center hover:scale-105 hover:shadow-lg transition-all cursor-pointer'>
-                        <div className='bg-yellow-200 w-20 h-20 rounded-full mt-1'></div>
-                        <div className='text-white font-medium mt-2'>ProjectName</div>
-                    </div>
-                    <div className='w-auto h-auto p-2 bg-bars rounded-md flex flex-col items-center justify-center hover:scale-105 hover:shadow-lg transition-all cursor-pointer'>
-                        <div className='bg-blue-200 w-20 h-20 rounded-full mt-1'></div>
-                        <div className='text-white font-medium mt-2'>ProjectName</div>
-                    </div>
-                    <div className='w-auto h-auto p-2 bg-bars rounded-md flex flex-col items-center justify-center hover:scale-105 hover:shadow-lg transition-all cursor-pointer'>
-                        <div className='bg-red-200 w-20 h-20 rounded-full mt-1'></div>
-                        <div className='text-white font-medium mt-2'>ProjectName</div>
-                    </div>
-                    <div className='w-auto h-auto p-2 bg-bars rounded-md flex flex-col items-center justify-center hover:scale-105 hover:shadow-lg transition-all cursor-pointer'>
-                        <div className='bg-green-200 w-20 h-20 rounded-full mt-1'></div>
-                        <div className='text-white font-medium mt-2'>ProjectName</div>
-                    </div>
-                    <div className='w-auto h-auto p-2 bg-bars rounded-md flex flex-col items-center justify-center hover:scale-105 hover:shadow-lg transition-all cursor-pointer'>
-                        <div className='bg-purple-200 w-20 h-20 rounded-full mt-1'></div>
-                        <div className='text-white font-medium mt-2'>ProjectName</div>
-                    </div>
+                    {
+                        props.projects.map((project) => {
+                            return <div className='w-auto h-auto p-2 bg-bars rounded-md flex flex-col items-center justify-center hover:scale-105 hover:shadow-lg transition-all cursor-pointer'>
+                                <div className='bg-blue-200 w-20 h-20 rounded-full mt-1'></div>
+                                <div className='text-white font-medium mt-2'>{project.data.name}</div>
+                            </div>
+                        })
+                    }
                 </div>
 
             </div>

@@ -35,6 +35,7 @@ const ChatBox = (props) => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
   const [project, setProject] = useState({});
+  const [myRole, setMyRole] = useState("");
   const [mensajeInput, setMensajeInput] = useState("");
 
   useEffect(() => {
@@ -46,6 +47,12 @@ const ChatBox = (props) => {
         });
 
       setProject(props.project);
+
+      props.member.map((mem) => {
+        if (mem.uid == props.userId) {
+          setMyRole(mem.role);
+        }
+      });
     }
   }, [props.projectId]);
 
@@ -107,6 +114,7 @@ const ChatBox = (props) => {
       senderId: props.userId,
       avatar: props.user.avatar,
       name: props.user.name,
+      role: myRole,
       created_at: firebase.firestore.FieldValue.serverTimestamp(),
     }
 
@@ -144,7 +152,8 @@ const ChatBox = (props) => {
         {/*MESSAGES----------------*/}
         <div ref={messageContainerRef} className="overflow-y-scroll scrollbar-hidden scrollbar-hide pt-5 flex-1 float-left">
           {messages.map((me, index) => {
-            return <Message message={me}
+            return <Message 
+              message={me}
               user={props.user}
               userId={props.userId}
               key={index} />

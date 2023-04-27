@@ -18,9 +18,17 @@ async function setInitProject(uid, name) {
         created_at: firebase.firestore.FieldValue.serverTimestamp(),
         last_connection_at: firebase.firestore.FieldValue.serverTimestamp(),
         invitation: [],
-        member: [uid],
     };
-    const res = await db.collection('projects').add(data);
+    const res = await db.collection('projects').doc(name + uid).set(data);
+
+    const memberParentRef = db.collection('projects').doc(name + uid);
+        const memberChildRef = memberParentRef.collection('member');
+
+        await memberChildRef.doc(uid).set({
+            uid: uid,
+            name: name,
+            role: 'admin'
+        });
 
     //Crear una collection en users
     const userProjectRef = await db.collection('users').doc(uid).collection('projects').doc(res.id).set({project: res.id, last_connection_at: firebase.firestore.FieldValue.serverTimestamp()});

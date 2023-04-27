@@ -10,7 +10,6 @@ import { RiLogoutBoxLine } from "react-icons/ri";
 
 const Sidebar = (props) => {
 
-    console.log(props);
     const Swal = require('sweetalert2')
     const [darkMode, setDarkMode] = useState(false);
     const [showNotifications, setShowNotifications] = useState(false);
@@ -91,6 +90,7 @@ const Sidebar = (props) => {
                                     return (
                                         <InvitationNotification
                                             project={props.invitation}
+                                            user={props.user}
                                             userId={props.userId}
                                         />
                                     )

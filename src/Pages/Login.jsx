@@ -58,8 +58,7 @@ const Login = () => {
                     uid: uid,
                     e_mail: eMail,
                     avatar: createDefaultIcon(displayName),
-                    created_at: firebase.firestore.FieldValue.serverTimestamp(),
-                    role: null,
+                    created_at: firebase.firestore.FieldValue.serverTimestamp()
                 };
                 const userRef = db.collection('users').doc(result.user.uid);
                 const user = await userRef.get();
