@@ -6,7 +6,6 @@ import { log } from "util";
 import firebase from 'firebase/compat/app';
 
 const InvitationNotification = (props) => {
-    console.log(props);
 
     async function joinToProject() {
         console.log(props.userId);
