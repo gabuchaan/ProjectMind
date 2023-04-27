@@ -37,8 +37,16 @@ const InvitationNotification = (props) => {
 
         const joinProjectRef = doc(db, "projects", props.project[0].id);
         await updateDoc(joinProjectRef, {
-            invitation: arrayRemove(props.userId),
-            member: arrayUnion(props.userId)
+            invitation: arrayRemove(props.userId)
+        });
+
+        const memberParentRef = db.collection('projects').doc(props.project[0].id);
+        const memberChildRef = memberParentRef.collection('member');
+
+        await memberChildRef.doc(props.userId).set({
+            uid: props.userId,
+            name: props.user.name,
+            role: null
         });
 
         const element = document.getElementById('toast-message-cta');

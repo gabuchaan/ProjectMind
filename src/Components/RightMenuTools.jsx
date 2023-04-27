@@ -23,7 +23,7 @@ const RightMenuTools = () => {
     <>
       <ToolsMenu />
       <div
-        className="w-full h-auto pt-5 bg-white shadow-lg mt-4 dark:bg-boxes rounded-md flex flex-col justify-center items-center p-3"
+        className="w-full h-auto pt-5 bg-transparent shadow-lg mt-4 dark:bg-boxes rounded-md flex flex-col justify-center items-center p-3"
         style={{ backgroundColor: darkenColor(randomColor) }}
       >
         <div className="bg-blue-100 rounded-md w-72 h-auto flex flex-col items-center justify-center pt-5 pb-5">

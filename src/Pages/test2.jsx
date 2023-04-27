@@ -62,14 +62,13 @@ const Test2 = () => {
     }
 
     if (projectId) {
-      db.collection('projects').doc(projectId)
+      const memberParentRef = db.collection('projects').doc(projectId);
+      memberParentRef.collection('member')
         .onSnapshot((snapShot) => {
           let memberArray = [];
-          snapShot.data().member.map(async (per) => {
-
-            const docRef = doc(db, "users", per);
-            const docSnap = await getDoc(docRef);
-            memberArray.push(docSnap.data())
+          snapShot.forEach((mem) => {
+            console.log(mem.data());
+            memberArray.push(mem.data());
           })
           setMember(memberArray);
         })
@@ -82,12 +81,6 @@ const Test2 = () => {
         })
         setTasks(arrayTasks);
       });
-    }
-
-    if (Object.keys(invitation).length === 0) {
-      console.log('obj is empty');
-    } else {
-      console.log('obj is not empty');
     }
   }, [authUser, projectId]);
 
@@ -120,8 +113,6 @@ const Test2 = () => {
         });
     })
   }
-
-  console.log(tasks);
 
   const getInvitationProjects = async (uid) => {
     let projects = [];
@@ -190,6 +181,7 @@ const Test2 = () => {
             authUser={authUser}
             user={user}
             userId={userId}
+            projects={projects}
             />
           </div>
           {/*CHAT----------------------------*/}
@@ -211,6 +203,7 @@ const Test2 = () => {
               authUser={authUser}
               user={user}
               userId={userId}
+              member={member}
             />
           )}
 

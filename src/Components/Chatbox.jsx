@@ -12,6 +12,8 @@ import { log } from 'util';
 import { collection } from 'firebase/firestore';
 import firebase from 'firebase/compat/app';
 import { propTypes } from 'react-bootstrap/esm/Image';
+import * as monaco from 'monaco-editor';
+import Editor, { DiffEditor, useMonaco, loader } from '@monaco-editor/react';
 
 
 /**
@@ -35,6 +37,7 @@ const ChatBox = (props) => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
   const [project, setProject] = useState({});
+  const [myRole, setMyRole] = useState("");
   const [mensajeInput, setMensajeInput] = useState("");
 
   useEffect(() => {
@@ -46,6 +49,12 @@ const ChatBox = (props) => {
         });
 
       setProject(props.project);
+
+      props.member.map((mem) => {
+        if (mem.uid == props.userId) {
+          setMyRole(mem.role);
+        }
+      });
     }
   }, [props.projectId]);
 
@@ -107,6 +116,7 @@ const ChatBox = (props) => {
       senderId: props.userId,
       avatar: props.user.avatar,
       name: props.user.name,
+      role: myRole,
       created_at: firebase.firestore.FieldValue.serverTimestamp(),
     }
 
@@ -140,11 +150,39 @@ const ChatBox = (props) => {
             <AiOutlineUserAdd className='cursor-pointer dark:hover:text-gray-100 transition-all' size={23} onClick={addUser} />
           </div>
         </div>
+        <Editor
+          className='mt-2'
+          height="30vh"
+          defaultLanguage="javascript"
+          defaultValue="// some comment"
+          options={{
+            minimap: { enabled: false },
+            roundedSelection: true,
+            wordWrap: "on",
+            theme: "vs-dark"
+          }}
+          editorDidMount={(editor, monaco) => {
+            editor.getModel().updateOptions({ tabSize: 2 });
+            editor.updateOptions({ fontFamily: 'Courier New' });
+            editor.updateOptions({ lineNumbers: 'off' });
+            editor.updateOptions({ roundedSelection: true });
+            editor.updateOptions({ theme: 'vs-dark' });
+            editor.updateOptions({ lineDecorationsWidth: 2 });
+            editor.updateOptions({ autoClosingBrackets: true });
+            editor.updateOptions({ colorDecorators: true });
+
+            // Personalizar estilos CSS
+            editor.getContainerDomNode().style.height = "30vh";
+            editor.getContainerDomNode().style.borderRadius = "0.375rem";
+            editor.getContainerDomNode().style.backgroundColor = "#f5f5f5";
+          }}
+        />
 
         {/*MESSAGES----------------*/}
         <div ref={messageContainerRef} className="overflow-y-scroll scrollbar-hidden scrollbar-hide pt-5 flex-1 float-left">
           {messages.map((me, index) => {
-            return <Message message={me}
+            return <Message
+              message={me}
               user={props.user}
               userId={props.userId}
               key={index} />
