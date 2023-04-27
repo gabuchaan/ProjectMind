@@ -9,6 +9,7 @@ const InvitationNotification = (props) => {
 
     async function joinToProject() {
         console.log(props.userId);
+        props.setShowNotifications(false); // Actualiza el estado de showNotifications a false
 
         const invitedUserRef = doc(db, "users", props.userId);
         await updateDoc(invitedUserRef, {

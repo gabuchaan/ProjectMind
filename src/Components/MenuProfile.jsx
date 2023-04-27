@@ -59,9 +59,9 @@ const MenuProfile = (props) => {
                 <div className='mt-3 flex gap-2 flex-wrap justify-center'>
                     {
                         props.projects.map((project) => {
-                            return <div className='w-auto h-auto p-2 bg-bars rounded-md flex flex-col items-center justify-center hover:scale-105 hover:shadow-lg transition-all cursor-pointer'>
+                            return <div className='w-32 h-36 p-2 bg-bars rounded-md flex flex-col items-center justify-center hover:scale-105 hover:shadow-lg transition-all cursor-pointer'>
                                 <div className='bg-blue-200 w-20 h-20 rounded-full mt-1'></div>
-                                <div className='text-white font-medium mt-2'>{project.name}</div>
+                                <div className='text-white font-medium mt-2 w-28 items-center justify-center flex'>{project.name}</div>
                             </div>
                         })
                     }

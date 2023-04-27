@@ -12,6 +12,8 @@ import { log } from 'util';
 import { collection } from 'firebase/firestore';
 import firebase from 'firebase/compat/app';
 import { propTypes } from 'react-bootstrap/esm/Image';
+import * as monaco from 'monaco-editor';
+import Editor, { DiffEditor, useMonaco, loader } from '@monaco-editor/react';
 
 
 /**
@@ -19,7 +21,7 @@ import { propTypes } from 'react-bootstrap/esm/Image';
  * @param {*} props 
  * project={project}
  * projectId={projectId}
- * authUser={authUser}
+  * authUser={authUser}
  * user={user}
  * userId={userId}
  * @returns 
@@ -130,12 +132,12 @@ const ChatBox = (props) => {
   return (
     <>
       <div className=" chat-box border-gray-300 dark:border-boxes col-span-12 xl:col-span-6 flex flex-col overflow-hidden xl:border-l xl:border-r p-6">
-        <div className="box border border-gray-300 dark:border-bars bg-white dark:bg-bars h-16 flex justify-start flex-row items-center px-5 rounded-md">
+        <div className="box border border-gray-300 dark:border-blue-900 bg-white dark:bg-bars h-20 flex justify-start flex-row items-center px-5 rounded-md">
           <div>
             <img className="ring-2 ring-gray-300 dark:ring-gray-600 border-4 border-transparent rounded-full  w-12" src="https://tecdn.b-cdn.net/img/new/avatars/8.webp" />
           </div>
-          <div className='cd '>
-            <div className="intro-y text-md ml-5 font-medium text-bars dark:text-white">{project.name}</div>
+          <div className='flex items-center'>
+            <div className="intro-y text-2xl ml-5 font-medium text-bars dark:text-white">{project.name}</div>
             <div id='roomname' className="intro-y text-md ml-5 font-semibold text-gray-400">Ideas</div>
           </div>
 
@@ -148,11 +150,38 @@ const ChatBox = (props) => {
             <AiOutlineUserAdd className='cursor-pointer dark:hover:text-gray-100 transition-all' size={23} onClick={addUser} />
           </div>
         </div>
+        <Editor
+          className='mt-2'
+          height="30vh"
+          defaultLanguage="javascript"
+          defaultValue="// some comment"
+          options={{
+            minimap: { enabled: false },
+            roundedSelection: true,
+            wordWrap: "on",
+            theme: "vs-dark"
+          }}
+          editorDidMount={(editor, monaco) => {
+            editor.getModel().updateOptions({ tabSize: 2 });
+            editor.updateOptions({ fontFamily: 'Courier New' });
+            editor.updateOptions({ lineNumbers: 'off' });
+            editor.updateOptions({ roundedSelection: true });
+            editor.updateOptions({ theme: 'vs-dark' });
+            editor.updateOptions({ lineDecorationsWidth: 2 });
+            editor.updateOptions({ autoClosingBrackets: true });
+            editor.updateOptions({ colorDecorators: true });
+
+            // Personalizar estilos CSS
+            editor.getContainerDomNode().style.height = "30vh";
+            editor.getContainerDomNode().style.borderRadius = "0.375rem";
+            editor.getContainerDomNode().style.backgroundColor = "#000";
+          }}
+        />
 
         {/*MESSAGES----------------*/}
         <div ref={messageContainerRef} className="overflow-y-scroll scrollbar-hidden scrollbar-hide pt-5 flex-1 float-left">
           {messages.map((me, index) => {
-            return <Message 
+            return <Message
               message={me}
               user={props.user}
               userId={props.userId}
