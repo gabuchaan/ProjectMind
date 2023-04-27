@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { AiOutlineBell } from "react-icons/ai";
+import { AiOutlineBell, AiFillBell } from "react-icons/ai";
 import { BsPlusCircle } from "react-icons/bs";
 import ProjectIcon from "./ProjectIcon";
 import InvitationNotification from '../Components/InvitationNotification';
@@ -14,7 +14,7 @@ const Sidebar = (props) => {
     const Swal = require('sweetalert2')
     const [darkMode, setDarkMode] = useState(false);
     const [showNotifications, setShowNotifications] = useState(false);
-
+    const [haveInvitation, setHaveInvitation] = useState(null);
     const handleClick3 = () => {
         if (props.invitation.length != 0) setShowNotifications(!showNotifications);
     };
@@ -26,8 +26,12 @@ const Sidebar = (props) => {
             document.documentElement.classList.remove('dark');
         }
     }, [darkMode]);
-    
-    function logOut(){
+
+    useEffect(()=>{
+        setHaveInvitation(props.invitation.length != 0)
+    },[props.userId])
+
+    function logOut() {
         console.log('logout')
     }
 
@@ -69,7 +73,9 @@ const Sidebar = (props) => {
         <div>
             <div className="bg-white dark:bg-bars justify-center items-center side-menu  top-0 left-0 fixed w-16 h-screen flex flex-col  shadow-lg">
                 {/*NOTIFICATION BUTTON*/}
-                <AiOutlineBell onClick={handleClick3} size={33} className="text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white hover:scale-105 cursor-pointer transition-all fixed top-5" />
+                {
+                    haveInvitation ? <AiFillBell onClick={handleClick3} size={33} className="text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white hover:scale-105 cursor-pointer transition-all fixed top-5" /> : <AiOutlineBell onClick={handleClick3} size={33} className="text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white hover:scale-105 cursor-pointer transition-all fixed top-5" />
+                }
                 <button className='fixed top-20 text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white hover:scale-105 transition-all'>
                     <label className="swap swap-rotate scale-75" >
                         <input type="checkbox" />
@@ -92,6 +98,7 @@ const Sidebar = (props) => {
                                         <InvitationNotification
                                             project={props.invitation}
                                             userId={props.userId}
+                                            setShowNotifications={setShowNotifications} // pasar setShowNotifications como prop
                                         />
                                     )
                                 })

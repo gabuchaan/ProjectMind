@@ -56,26 +56,21 @@ const MenuProfile = (props) => {
             <div className='bg-boxes w-full h-auto mt-3 p-3 rounded-md items-center justify-center flex flex-col'>
                 <div className="intro-y text-xl font-medium text-white">Projects</div>
                 <div className='mt-3 flex gap-2 flex-wrap justify-center'>
-                    <div className='w-auto h-auto p-2 bg-bars rounded-md flex flex-col items-center justify-center hover:scale-105 hover:shadow-lg transition-all cursor-pointer'>
+                    <div className='w-32 h-36 p-2 bg-bars rounded-md flex flex-col items-center justify-center hover:scale-105 hover:shadow-lg transition-all cursor-pointer'>
                         <div className='bg-yellow-200 w-20 h-20 rounded-full mt-1'></div>
                         <div className='text-white font-medium mt-2'>ProjectName</div>
                     </div>
-                    <div className='w-auto h-auto p-2 bg-bars rounded-md flex flex-col items-center justify-center hover:scale-105 hover:shadow-lg transition-all cursor-pointer'>
-                        <div className='bg-blue-200 w-20 h-20 rounded-full mt-1'></div>
+                    <div className='w-32 h-36 p-2 bg-bars rounded-md flex flex-col items-center justify-center hover:scale-105 hover:shadow-lg transition-all cursor-pointer'>
+                        <div className='bg-yellow-200 w-20 h-20 rounded-full mt-1'></div>
+                        <div className='text-white font-medium mt-2 w-28 items-center justify-center flex'>ProjectName</div>
+                    </div>
+                    <div className='w-32 h-36 p-2 bg-bars rounded-md flex flex-col items-center justify-center hover:scale-105 hover:shadow-lg transition-all cursor-pointer'>
+                        <div className='bg-yellow-200 w-20 h-20 rounded-full mt-1'></div>
                         <div className='text-white font-medium mt-2'>ProjectName</div>
                     </div>
-                    <div className='w-auto h-auto p-2 bg-bars rounded-md flex flex-col items-center justify-center hover:scale-105 hover:shadow-lg transition-all cursor-pointer'>
-                        <div className='bg-red-200 w-20 h-20 rounded-full mt-1'></div>
-                        <div className='text-white font-medium mt-2'>ProjectName</div>
-                    </div>
-                    <div className='w-auto h-auto p-2 bg-bars rounded-md flex flex-col items-center justify-center hover:scale-105 hover:shadow-lg transition-all cursor-pointer'>
-                        <div className='bg-green-200 w-20 h-20 rounded-full mt-1'></div>
-                        <div className='text-white font-medium mt-2'>ProjectName</div>
-                    </div>
-                    <div className='w-auto h-auto p-2 bg-bars rounded-md flex flex-col items-center justify-center hover:scale-105 hover:shadow-lg transition-all cursor-pointer'>
-                        <div className='bg-purple-200 w-20 h-20 rounded-full mt-1'></div>
-                        <div className='text-white font-medium mt-2'>ProjectName</div>
-                    </div>
+                    
+                   
+                    
                 </div>
 
             </div>

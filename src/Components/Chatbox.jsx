@@ -19,7 +19,7 @@ import { propTypes } from 'react-bootstrap/esm/Image';
  * @param {*} props 
  * project={project}
  * projectId={projectId}
- * authUser={authUser}
+  * authUser={authUser}
  * user={user}
  * userId={userId}
  * @returns 
@@ -122,12 +122,12 @@ const ChatBox = (props) => {
   return (
     <>
       <div className=" chat-box border-gray-300 dark:border-boxes col-span-12 xl:col-span-6 flex flex-col overflow-hidden xl:border-l xl:border-r p-6">
-        <div className="box border border-gray-300 dark:border-bars bg-white dark:bg-bars h-16 flex justify-start flex-row items-center px-5 rounded-md">
+        <div className="box border border-gray-300 dark:border-blue-900 bg-white dark:bg-bars h-20 flex justify-start flex-row items-center px-5 rounded-md">
           <div>
             <img className="ring-2 ring-gray-300 dark:ring-gray-600 border-4 border-transparent rounded-full  w-12" src="https://tecdn.b-cdn.net/img/new/avatars/8.webp" />
           </div>
-          <div className='cd '>
-            <div className="intro-y text-md ml-5 font-medium text-bars dark:text-white">{project.name}</div>
+          <div className='flex items-center'>
+            <div className="intro-y text-2xl ml-5 font-medium text-bars dark:text-white">{project.name}</div>
             <div id='roomname' className="intro-y text-md ml-5 font-semibold text-gray-400">Ideas</div>
           </div>
 

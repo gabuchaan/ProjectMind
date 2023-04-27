@@ -13,6 +13,7 @@ import { getInvitedProjects } from "../Js/project";
 import EditProject from '../Components/EditProject';
 import { BsGear } from 'react-icons/bs';
 import firebase from 'firebase/compat/app';
+import RightMenuTools from '../Components/RightMenuTools';
 
 const Test2 = () => {
   const [showEditProject, setShowEditProject] = useState(false);
@@ -216,14 +217,15 @@ const Test2 = () => {
           {/*RIGHT MENU*/}
 
           <div className=" info-content col-span-12 xl:col-span-3 flex flex-col overflow-hidden pl-6 xl:pl-0 pr-6 pt-6 ">
-            <Rightmenu
+            {/* <Rightmenu
               project={project}
               projectId={projectId}
               authUser={authUser}
               user={user}
               userId={userId}
               tasks={tasks}
-            />
+            /> */}
+            <RightMenuTools />
           </div>
         </div>
       </div>
