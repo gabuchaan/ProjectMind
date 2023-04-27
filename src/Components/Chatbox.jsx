@@ -174,7 +174,7 @@ const ChatBox = (props) => {
             // Personalizar estilos CSS
             editor.getContainerDomNode().style.height = "30vh";
             editor.getContainerDomNode().style.borderRadius = "0.375rem";
-            editor.getContainerDomNode().style.backgroundColor = "#f5f5f5";
+            editor.getContainerDomNode().style.backgroundColor = "#000";
           }}
         />
 

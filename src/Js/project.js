@@ -1,4 +1,4 @@
-import { db} from "../firebase.js";
+import { db } from "../firebase.js";
 import firebase from 'firebase/compat/app';
 import { createDefaultIcon } from "../Js/user";
 import { getDoc, doc, getDocs, collection, query, where, orderBy, limit, updateDoc, arrayUnion } from "firebase/firestore";
@@ -19,19 +19,37 @@ async function setInitProject(uid, name) {
         last_connection_at: firebase.firestore.FieldValue.serverTimestamp(),
         invitation: [],
     };
-    const res = await db.collection('projects').doc(name + uid).set(data);
+    const res = await db.collection('projects').doc(data.name + uid).set(data);
 
-    const memberParentRef = db.collection('projects').doc(name + uid);
-        const memberChildRef = memberParentRef.collection('member');
+    const memberParentRef = db.collection('projects').doc(data.name + uid);
+    const memberChildRef = memberParentRef.collection('member');
 
-        await memberChildRef.doc(uid).set({
-            uid: uid,
-            name: name,
-            role: 'admin'
-        });
+    await memberChildRef.doc(uid).set({
+        uid: uid,
+        name: name,
+        role: 'admin'
+    });
+
+    //Crear un projecto en users
+    const userParentRef = db.collection('users').doc(uid);
+    const userChildRef = userParentRef.collection('projects');
+
+    userChildRef.doc(data.name + uid).set({
+        project: data.name + uid,
+        name: data.name,
+        admin: uid,
+        image: `https://ui-avatars.com/api/?name=${data.name}&background=random&rounded=true&format=svg`,
+        last_connection_at: firebase.firestore.FieldValue.serverTimestamp()
+    });
 
     //Crear una collection en users
-    const userProjectRef = await db.collection('users').doc(uid).collection('projects').doc(res.id).set({project: res.id, last_connection_at: firebase.firestore.FieldValue.serverTimestamp()});
+    // const userProjectRef = await db.collection('users').doc(uid).collection('projects').doc(res.id).set({ 
+    //     project: res.id,
+    //     name: data.name,
+    //     admin: uid,
+    //     image: `https://ui-avatars.com/api/?name=${data.name}&background=random&rounded=true&format=svg`,
+    //     last_connection_at: firebase.firestore.FieldValue.serverTimestamp() 
+    // });
 }
 
 /**
@@ -52,7 +70,7 @@ async function getAllProjects(uid) {
     });
 }
 
-async function createProject(uid, projectName) {
+async function createProject(uid, projectName, userName) {
     // crear un projecto en projecto
     const data = {
         name: projectName,
@@ -61,17 +79,34 @@ async function createProject(uid, projectName) {
         created_at: firebase.firestore.FieldValue.serverTimestamp(),
         last_connection_at: firebase.firestore.FieldValue.serverTimestamp(),
         invitation: [],
-        member: [uid],
     };
-    const res = await db.collection('projects').add(data);
+    const res = await db.collection('projects').doc(data.name + uid).set(data);
+
+    const memberParentRef = db.collection('projects').doc(data.name + uid);
+    const memberChildRef = memberParentRef.collection('member');
+
+    await memberChildRef.doc(uid).set({
+        uid: uid,
+        name: userName,
+        role: 'admin'
+    });
 
     //Crear un projecto en users
-    const userProjectRef = await db.collection('users').doc(uid).collection('projects').doc(res.id).set({project: res.id, last_connection_at: firebase.firestore.FieldValue.serverTimestamp()});
-    const messageProjectRef = await db.collection('messages').doc(res.id).set({project: projectName});
+    const userParentRef = db.collection('users').doc(uid);
+    const userChildRef = userParentRef.collection('projects');
+
+    userChildRef.doc(data.name + uid).set({
+        project: data.name + uid,
+        name: data.name,
+        admin: uid,
+        image: `https://ui-avatars.com/api/?name=${data.name}&background=random&rounded=true&format=svg`,
+        last_connection_at: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    await db.collection('messages').doc(res.id).set({ project: projectName });
 
 }
 
-async function getRecientProject(uid){
+async function getRecientProject(uid) {
     const projectRef = collection(db, "projects");
     const q = query(projectRef, where("admin", "==", uid), orderBy("last_connection_at"), limit(1));
     const querySnapshot = await getDocs(q);
@@ -104,19 +139,19 @@ function getInvitedProjects(invitation) {
 }
 
 function removeProject(params) {
-    
+
 }
 
 function addUser(params) {
-    
+
 }
 
 function removeUser(params) {
-    
+
 }
 
 function joinToProject(params) {
-    
+
 }
 
 export { setInitProject, getAllProjects, createProject, removeProject, addUser, removeUser, joinToProject, getRecientProject, inviteUser, getInvitedProjects }
