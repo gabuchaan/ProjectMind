@@ -40,7 +40,7 @@ const Sidebar = (props) => {
                 const projectName = document.getElementById('projectName').value;
                 if (!checkIfNotEmpty(projectName)) return "Tienes que poner un nombre";
                 console.log("hola");
-                createProject(props.userId, projectName);
+                createProject(props.userId, projectName, props.user.name);
 
                 return projectName;
             }
@@ -102,6 +102,7 @@ const Sidebar = (props) => {
                     {props.projects.map((project, index) => {
                         return (
                             <ProjectIcon
+                                
                                 project={project}
                                 onClick={props.onClick}
                                 key={index}

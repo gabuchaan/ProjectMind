@@ -87,17 +87,31 @@ const Test2 = () => {
   //--------------- FUNCTIONS ----------------
   //------------------------------------------
   const getProjects = async (uid) => {
-    const docRef = collection(db, "projects");
-    const q = query(docRef, where("member", "array-contains", uid));
+    // const docRef = collection(db, "projects");
+    // const q = query(docRef, where("member", "array-contains", uid));
 
-    getDocs(q).then((snapshot) => {
+    const docRef = db.collection("users").doc(uid);
+    const childRef = docRef.collection('projects');
+
+    let results = [];
+
+    childRef.get().then((snap) => {
       let results = [];
-
-      snapshot.docs.forEach((doc) => {
-        results.push({ id: doc.id, data: doc.data() });
+      snap.forEach((pro) => {
+        results.push(pro.data());
       });
-      setProjects(results);
+      setProjects(results)
     });
+
+
+    // getDocs(q).then((snapshot) => {
+    //   let results = [];
+
+    //   snapshot.docs.forEach((doc) => {
+    //     results.push({ id: doc.id, data: doc.data() });
+    //   });
+    //   setProjects(results);
+    // });
   }
 
   const getRecentProject = async (uid) => {
@@ -139,11 +153,10 @@ const Test2 = () => {
   }
 
   function handleSelectProject(project) {
-    setProject(project.data);
-    setProjectId(project.id);
-    console.log(project.id);
+    setProject(project);
+    setProjectId(project.project);
 
-    const docRef = db.collection("users").doc(userId).collection("projects").doc(project.id);
+    const docRef = db.collection("users").doc(userId).collection("projects").doc(project.project);
     docRef.update({
       last_connection_at: firebase.firestore.FieldValue.serverTimestamp(),
     })
