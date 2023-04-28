@@ -33,7 +33,6 @@ const Message = (props) => {
             {props.message.message}
           </div>
           <time className="text-gray-700 dark:text-gray-400 text-xs opacity-50 mt-1">{dateTime}</time>
-
         </div>
       </>
     );

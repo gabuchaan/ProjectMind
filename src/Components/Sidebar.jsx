@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { AiOutlineBell, AiFillBell } from "react-icons/ai";
+import { Link, useNavigate } from "react-router-dom";
 import { BsPlusCircle } from "react-icons/bs";
 import ProjectIcon from "./ProjectIcon";
 import InvitationNotification from '../Components/InvitationNotification';
 import { checkIfNotEmpty } from '../Js/common';
 import { createProject } from '../Js/project';
 import { RiLogoutBoxLine } from "react-icons/ri";
+import { getAuth, signOut } from "firebase/auth";
+import { log } from 'util';
 
 
 const Sidebar = (props) => {
 
+    const navigate = useNavigate();
     const Swal = require('sweetalert2')
     const [darkMode, setDarkMode] = useState(false);
     const [showNotifications, setShowNotifications] = useState(false);
@@ -26,12 +30,22 @@ const Sidebar = (props) => {
         }
     }, [darkMode]);
 
-    useEffect(()=>{
+    useEffect(() => {
         setHaveInvitation(props.invitation.length != 0)
-    },[props.userId])
+    }, [props.userId])
 
     function logOut() {
-        console.log('logout')
+        const auth = getAuth();
+
+        signOut(auth).then(() => {
+            console.log("logout");
+            navigate('/')
+            // Sign-out successful.
+        }).catch((error) => {
+            console.log("err");
+            // An error happened.
+        });
+
     }
 
     async function createProjectForm() {
@@ -109,7 +123,7 @@ const Sidebar = (props) => {
                     {props.projects.map((project, index) => {
                         return (
                             <ProjectIcon
-                                
+
                                 project={project}
                                 onClick={props.onClick}
                                 key={index}
