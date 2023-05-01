@@ -82,7 +82,7 @@ const Test2 = () => {
         setTasks(arrayTasks);
       });
     }
-  }, [authUser, projectId]);
+  }, [projectId]);
 
   //------------------------------------------
   //--------------- FUNCTIONS ----------------

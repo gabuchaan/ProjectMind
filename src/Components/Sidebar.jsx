@@ -8,16 +8,17 @@ import { checkIfNotEmpty } from '../Js/common';
 import { createProject } from '../Js/project';
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { getAuth, signOut } from "firebase/auth";
-import { log } from 'util';
 
 
 const Sidebar = (props) => {
+    console.log(props);
 
     const navigate = useNavigate();
     const Swal = require('sweetalert2')
     const [darkMode, setDarkMode] = useState(false);
     const [showNotifications, setShowNotifications] = useState(false);
     const [haveInvitation, setHaveInvitation] = useState(null);
+
     const handleClick3 = () => {
         if (props.invitation.length != 0) setShowNotifications(!showNotifications);
     };
@@ -32,7 +33,7 @@ const Sidebar = (props) => {
 
     useEffect(() => {
         setHaveInvitation(props.invitation.length != 0)
-    }, [props.userId])
+    }, [props.invitation])
 
     function logOut() {
         const auth = getAuth();
@@ -109,7 +110,7 @@ const Sidebar = (props) => {
                                 props.invitation.map((project) => {
                                     return (
                                         <InvitationNotification
-                                            project={props.invitation}
+                                            project={project}
                                             user={props.user}
                                             userId={props.userId}
                                             setShowNotifications={setShowNotifications} // pasar setShowNotifications como prop

@@ -2,8 +2,6 @@ import React from "react";
 
 const ProjectIcon = (props) => {
 
-    console.log(props);
-
     //------------------------------------------
     //--------------- VARIABLES ----------------
     //------------------------------------------

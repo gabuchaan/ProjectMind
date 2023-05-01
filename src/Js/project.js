@@ -14,6 +14,7 @@ async function setInitProject(uid, name) {
     const data = {
         name: `${name}'s First Project`,
         admin: uid,
+        admin_name: name,
         image: `https://ui-avatars.com/api/?name=${name}'s First Project&background=random&rounded=true&format=svg`,
         created_at: firebase.firestore.FieldValue.serverTimestamp(),
         last_connection_at: firebase.firestore.FieldValue.serverTimestamp(),
@@ -75,6 +76,7 @@ async function createProject(uid, projectName, userName) {
     const data = {
         name: projectName,
         admin: uid,
+        admin_name: userName,
         image: `https://ui-avatars.com/api/?name=${projectName}&background=random&rounded=true&format=svg`,
         created_at: firebase.firestore.FieldValue.serverTimestamp(),
         last_connection_at: firebase.firestore.FieldValue.serverTimestamp(),
