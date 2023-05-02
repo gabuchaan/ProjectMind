@@ -70,7 +70,7 @@ const Login = () => {
                     console.log('No such document!');
                     const res = await db.collection('users').doc(uid).set(data);
 
-                    setInitProject(uid, displayName);
+                    setInitProject(uid, displayName, data.avatar);
                 }
 
                 navigate("test");

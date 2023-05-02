@@ -239,6 +239,7 @@ const Test2 = () => {
             <Rightmenu
               project={project}
               projectId={projectId}
+              member={member}
               authUser={authUser}
               user={user}
               userId={userId}

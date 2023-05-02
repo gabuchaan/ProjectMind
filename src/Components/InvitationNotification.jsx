@@ -40,6 +40,7 @@ console.log(props.project);
         await memberChildRef.doc(props.userId).set({
             uid: props.userId,
             name: props.user.name,
+            avatar: props.user.avatar,
             role: null
         });
 

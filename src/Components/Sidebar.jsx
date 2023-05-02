@@ -52,7 +52,7 @@ const Sidebar = (props) => {
                 const projectName = document.getElementById('projectName').value;
                 if (!checkIfNotEmpty(projectName)) return "Tienes que poner un nombre";
                 console.log("hola");
-                createProject(props.userId, projectName, props.user.name);
+                createProject(props.userId, projectName, props.user.name, props.user.avatar);
 
                 return projectName;
             }

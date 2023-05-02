@@ -8,7 +8,7 @@ import { getDoc, doc, getDocs, collection, query, where, orderBy, limit, updateD
  * @param {*} uid 
  * @param {*} name 
  */
-async function setInitProject(uid, name) {
+async function setInitProject(uid, name, avatar) {
 
     //Crear un projecto en Projects
     const data = {
@@ -28,6 +28,7 @@ async function setInitProject(uid, name) {
     await memberChildRef.doc(uid).set({
         uid: uid,
         name: name,
+        avatar: avatar,
         role: 'admin'
     });
 
@@ -72,7 +73,7 @@ async function getAllProjects(uid) {
     });
 }
 
-async function createProject(uid, projectName, userName) {
+async function createProject(uid, projectName, userName, avatar) {
     // crear un projecto en projecto
     const data = {
         name: projectName,
@@ -91,6 +92,7 @@ async function createProject(uid, projectName, userName) {
     await memberChildRef.doc(uid).set({
         uid: uid,
         name: userName,
+        avatar: avatar,
         role: 'admin'
     });
 
