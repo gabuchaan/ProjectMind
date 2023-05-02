@@ -57,8 +57,12 @@ const Test2 = () => {
 
       db.collection("users").doc(authUser.uid).collection("projects")
         .onSnapshot((snapShot) => {
+          console.log("111");
           getProjects(authUser.uid);
         });
+
+      // const docRef = db.collection("users").doc(uid);
+      // const childRef = docRef.collection('projects');
     }
 
     if (projectId) {

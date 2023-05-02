@@ -6,6 +6,7 @@ import { log } from "util";
 import firebase from 'firebase/compat/app';
 
 const InvitationNotification = (props) => {
+console.log(props.project);
 
     async function joinToProject() {
         console.log("Join!!");
@@ -22,6 +23,9 @@ const InvitationNotification = (props) => {
         // const invitedUserProjectsRef = invitedUserRef.collection("projects");
         subCollectionRef.doc(props.project.id).set({
             project: props.project.id,
+            name: props.project.data.name,
+            admin: props.project.data.admin,
+            image: props.project.data.image,
             last_connection_at: firebase.firestore.FieldValue.serverTimestamp()
         });
 
