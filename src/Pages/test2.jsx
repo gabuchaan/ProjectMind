@@ -36,6 +36,7 @@ const Test2 = () => {
   const [invitation, setInvitation] = useState([]);
   const [member, setMember] = useState([]);
   const [tasks, setTasks] = useState([]);
+  const [progress, setProgress] = useState(null);
 
   useEffect(() => {
     if (authUser) {
@@ -79,6 +80,22 @@ const Test2 = () => {
           arrayTasks.push({id: task.id ,data: task.data()});
         })
         setTasks(arrayTasks);
+
+        if (arrayTasks.length === 0) {
+          setProgress(0)
+        }else{
+          let finishedTask = 0;
+
+          //Calcular tareas completadas
+          arrayTasks.map((task) => {
+            if(task.data.state){
+              finishedTask++;
+            }
+          })
+
+          const progressPor = Math.round(finishedTask / arrayTasks.length * 100);
+          setProgress(progressPor);
+        }
       });
     }
   }, [projectId]);
@@ -173,7 +190,9 @@ const Test2 = () => {
           {/*SIDE MENU-------------------*/}
 
           <div id="menu-main" className=" side-content col-span-12 xl:col-span-3 -mt-16 xl:mt-0 pt-20 xl:-mr-6 px-6 xl:pt-6 side-content--active flex-col overflow-hidden">
-            <MenuRooms />
+            <MenuRooms 
+              progress={progress}
+            />
           </div>
           {/*EDITAR PERFIL*/}
 

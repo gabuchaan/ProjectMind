@@ -1,6 +1,14 @@
 import React from "react";
 
-const MenuRooms = () => {
+/**
+ * 
+ * @param {
+ * progress={progress}
+ * } props 
+ * @returns 
+ */
+
+const MenuRooms = (props) => {
   //------------------------------------------
   //--------------- VARIABLES ----------------
   //------------------------------------------
@@ -121,7 +129,7 @@ const MenuRooms = () => {
 
       <div className="text-gray-400 font-monserrat text-xl font-semibold  mt-4">
         <div className="flex flex-row items-center ">
-          <p>Project progress - 26%</p>
+          <p>Project progress - {props.progress}%</p>
           <div className="cursor-pointer hover:text-back dark:hover:text-white hover:scale-105 hover:shadow-lg transition-all bg-white dark:bg-bars ml-7 rounded-md pl-2 pr-2 text-gray-400 font-extralight pt-1 pb-1" onClick={seeProgres}>See progress </div>
         </div>
 
