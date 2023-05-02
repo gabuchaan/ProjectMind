@@ -14,6 +14,7 @@ import EditProject from '../Components/EditProject';
 import { BsGear } from 'react-icons/bs';
 import firebase from 'firebase/compat/app';
 import RightMenuTools from '../Components/RightMenuTools';
+import { log } from 'util';
 
 const Test2 = () => {
   const [showEditProject, setShowEditProject] = useState(false);
@@ -43,7 +44,7 @@ const Test2 = () => {
       getRecentProject(authUser.uid);
     }
 
-  }, [])
+  }, [authUser, projectId])
 
   useEffect(() => {
     if (authUser) {
@@ -57,7 +58,6 @@ const Test2 = () => {
 
       db.collection("users").doc(authUser.uid).collection("projects")
         .onSnapshot((snapShot) => {
-          console.log("111");
           getProjects(authUser.uid);
         });
 
@@ -71,36 +71,35 @@ const Test2 = () => {
         .onSnapshot((snapShot) => {
           let memberArray = [];
           snapShot.forEach((mem) => {
-            console.log(mem.data());
             memberArray.push(mem.data());
           })
           setMember(memberArray);
         })
 
       db.collection('projects').doc(projectId).collection('tasks')
-      .onSnapshot((snapShot) => {
-        let arrayTasks = [];
-        snapShot.forEach((task) => {
-          arrayTasks.push({id: task.id ,data: task.data()});
-        })
-        setTasks(arrayTasks);
-
-        if (arrayTasks.length === 0) {
-          setProgress(0)
-        }else{
-          let finishedTask = 0;
-
-          //Calcular tareas completadas
-          arrayTasks.map((task) => {
-            if(task.data.state){
-              finishedTask++;
-            }
+        .onSnapshot((snapShot) => {
+          let arrayTasks = [];
+          snapShot.forEach((task) => {
+            arrayTasks.push({ id: task.id, data: task.data() });
           })
+          setTasks(arrayTasks);
 
-          const progressPor = Math.round(finishedTask / arrayTasks.length * 100);
-          setProgress(progressPor);
-        }
-      });
+          if (arrayTasks.length === 0) {
+            setProgress(0)
+          } else {
+            let finishedTask = 0;
+
+            //Calcular tareas completadas
+            arrayTasks.map((task) => {
+              if (task.data.state) {
+                finishedTask++;
+              }
+            })
+
+            const progressPor = Math.round(finishedTask / arrayTasks.length * 100);
+            setProgress(progressPor);
+          }
+        });
     }
   }, [projectId]);
 
@@ -128,12 +127,17 @@ const Test2 = () => {
     const userProjectsRef = collection(db, "users", uid, "projects");
     const q = query(userProjectsRef, orderBy("last_connection_at", "desc"), limit(1));
     getDocs(q).then((snapshot) => {
-      const projectRef = doc(db, "projects", snapshot.docs[0]._document.data.value.mapValue.fields.project.stringValue);
-      getDoc(projectRef)
-        .then((projectData) => {
-          setProject(projectData.data());
-          setProjectId(projectData.id);
-        });
+      const projectRef = db.collection("projects").doc(snapshot.docs[0].id);
+      projectRef.get().then((res) => {
+        setProject(res.data());
+        setProjectId(res.id);
+      });
+      // const projectRef = doc(db, "projects", snapshot.docs[0]._document.data.value.mapValue.fields.project.stringValue);
+      // getDoc(projectRef)
+      //   .then((projectData) => {
+      //     setProject(projectData.data());
+      //     setProjectId(projectData.id);
+      //   });
     })
   }
 
@@ -173,6 +177,8 @@ const Test2 = () => {
 
   }
 
+  console.log(project);
+
   //------------------------------------------
   //--------------- COMPONENT ----------------
   //------------------------------------------
@@ -194,7 +200,7 @@ const Test2 = () => {
           {/*SIDE MENU-------------------*/}
 
           <div id="menu-main" className=" side-content col-span-12 xl:col-span-3 -mt-16 xl:mt-0 pt-20 xl:-mr-6 px-6 xl:pt-6 side-content--active flex-col overflow-hidden">
-            <MenuRooms 
+            <MenuRooms
               progress={progress}
               member={member}
             />
@@ -203,10 +209,10 @@ const Test2 = () => {
 
           <div id='menu-profile' className='hidden side-content col-span-12 xl:col-span-3 -mt-16 xl:mt-0 pt-20 xl:-mr-6 px-6 xl:pt-6 side-content--active flex-col overflow-hidden '>
             <MenuProfile
-            authUser={authUser}
-            user={user}
-            userId={userId}
-            projects={projects}
+              authUser={authUser}
+              user={user}
+              userId={userId}
+              projects={projects}
             />
           </div>
           {/*CHAT----------------------------*/}

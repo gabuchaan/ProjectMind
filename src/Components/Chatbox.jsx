@@ -28,6 +28,7 @@ import Editor, { DiffEditor, useMonaco, loader } from '@monaco-editor/react';
  * @returns 
  */
 const ChatBox = (props) => {
+  console.log(props);
   //------------------------------------------
   //--------------- VARIABLES ----------------
   //------------------------------------------
@@ -37,7 +38,7 @@ const ChatBox = (props) => {
   //------------------------------------------
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
-  const [project, setProject] = useState({});
+  const [project, setProject] = useState(props.project);
   const [myRole, setMyRole] = useState("");
 
   useEffect(() => {
@@ -56,7 +57,7 @@ const ChatBox = (props) => {
         }
       });
     }
-  }, [props.projectId]);
+  }, [props]);
 
 
   //------------------------------------------
