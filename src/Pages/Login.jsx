@@ -7,6 +7,8 @@ import { db } from "../firebase";
 import { setInitProject } from "../Js/project.js";
 import { createDefaultIcon } from "../Js/user";
 import Spline from '@splinetool/react-spline';
+import { FcGoogle } from "react-icons/fc";
+
 
 const Login = () => {
 
@@ -151,24 +153,21 @@ const Login = () => {
     return (
         <>
             <div className=" w-screen h-screen flex bg-fondos overflow-hidden">
-                <div className="flex fixed w-screen h-16 bg-black shadow-lg z-40"></div>
                 <Spline className="mt-10" scene="https://prod.spline.design/UGqjL7ZSlLACfNhg/scene.splinecode" />
-                <div className="text-white fixed top-52 right-52 font-bold text-8xl">Colaborate with people</div>
-                <div className=" flex flex-col bg-fondos border-2 border-blue-900 rounded-md w-96 h-80 justify-center items-center fixed right-40 top-80 mt-16">
-                    <h1>Login page</h1>
-                    <label>correo</label>
-                    <input id="email" type="email" style={{ background: 'gray' }}></input>
-                    <label>contraseña</label>
-                    <input id="password" type="password" style={{ background: 'gray' }}></input>
-                    <button style={{ background: 'green', marginLeft: '20px' }} onClick={signIn}>Submit</button>
-
-                    <br></br>
-                    <div style={{ marginTop: '30px', padding: '20px' }}>
-                        <button style={{ background: 'gray' }} onClick={signInWithGoogle}>Google</button>
-                        {/* <button style={{ background: 'blue' }} onClick={signInWithFacebook}>Facebook</button>
-                    <button style={{ background: 'black', color: 'white' }} onClick={signInWithGithub}>Github</button> */}
+                <div className="text-white fixed top-36 right-52 font-bold text-8xl">Colaborate with people</div>
+                <div className=" flex flex-col bg-transparent border-2 p-3 border-blue-900 rounded-md w-96 h-auto justify-center items-center fixed right-64 top-64 mt-16">
+                    <h1 className="text-white text-4xl font-semibold mt-2">Login</h1>
+                    <div className="flex flex-col mt-6 w-full ">
+                        <label className="text-gray-200 text-xl">Gmail</label>
+                        <input id="email" type="email" className="border rounded-md bg-transparent h-10 pl-3 text-white"></input>
                     </div>
-                    <Link to="/register"><button style={{ marginLeft: '50px', background: 'purple' }}>Register</button></Link>
+                    <div className="flex flex-col mt-3 w-full">
+                        <label className="text-gray-200 text-xl">Password</label>
+                        <input id="password" type="password" className="border rounded-md bg-transparent h-10 w-full pl-3 text-white"></input>
+                    </div>
+                    <button className="hover:scale-105 hover:shadow-lg transition-all w-full h-10 bg-green-500 rounded-md border text-white mt-3" onClick={signIn}>Submit</button>
+                    <button className="hover:scale-105 hover:shadow-lg transition-all cursor-pointer bg-white text-black rounded-md w-full h-10 mt-3 items-center justify-start flex"  onClick={signInWithGoogle}><FcGoogle className="ml-3" size={28}/><div className="ml-28">Google</div> </button>
+                    <Link to="/register" className="hover:scale-105 hover:shadow-lg transition-all cursor-pointer w-full"><button className="bg-gray-400 text-white rounded-md w-full h-10 mt-3 border">Register</button></Link>
                 </div>
 
             </div>
