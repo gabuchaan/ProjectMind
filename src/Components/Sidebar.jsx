@@ -12,11 +12,6 @@ import { getAuth, signOut } from "firebase/auth";
 
 const Sidebar = (props) => {
 
-    console.log(props);
-    console.log(props.invitation);
-    console.log(props.invitation[0]);
-    console.log(props.invitation.length);
-
     const navigate = useNavigate();
     const Swal = require('sweetalert2')
     const [darkMode, setDarkMode] = useState(false);

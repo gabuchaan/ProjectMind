@@ -14,10 +14,12 @@ import { useRef } from 'react';
  * user={user}
  * userId={userId}
  * member={member}
+ * tasks={props.tasks}
  * } props 
  * @returns 
  */
 const TaskManagement = (props) => {
+    console.log(props.tasks);
     //------------------------------------------
     //--------------- VARIABLES ----------------
     //------------------------------------------
@@ -31,26 +33,27 @@ const TaskManagement = (props) => {
     //--------------- FUNCTIONS ----------------
     //------------------------------------------
     async function asignHandler(e) {
-        
+
         if (taskName != '') {
             //Get selected UserName
             const select = document.getElementById("selectMember");
-            
+
             //Store DB
             const taskData = {
                 name: taskName,
                 state: false,
                 created_at: firebase.firestore.FieldValue.serverTimestamp(),
                 asignedUser: select.value,
+                asignedUserName: select.textContent,
                 project: props.projectId
             }
             db.collection("tasks").add(taskData).then((res) => {
                 db.collection("projects").doc(props.projectId).collection('tasks').doc(res.id).set(taskData);
             });
-            
+
             //Reset input TaskName
             document.getElementById("taskName").value = "";
-    
+
             //Reset TaskName
             setTaskName("");
         }
@@ -81,9 +84,14 @@ const TaskManagement = (props) => {
             </div>
             <div className='mt-5 text-white text-lg font-medium'>Created tasks</div>
             <div className='mt-5 flex flex-col space-y-4'>
-                <AsignedTask />
-                <AsignedTask />
-                <AsignedTask />
+                {
+                    props.tasks.map((task, index) => {
+                        return <AsignedTask
+                            key={index}
+                            task={task}
+                        />
+                    })
+                }
 
             </div>
         </div>

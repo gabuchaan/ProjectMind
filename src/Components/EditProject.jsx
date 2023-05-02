@@ -11,6 +11,7 @@ import { useRef } from 'react';
  * user={user}
  * userId={userId}
  * member={member}
+ * tasks={tasks}
  * @returns 
  */
 const EditProject = (props) => {
@@ -50,6 +51,7 @@ const EditProject = (props) => {
                     user={props.user}
                     userId={props.userId}
                     member={props.member}
+                    tasks={props.tasks}
                 />
 
 

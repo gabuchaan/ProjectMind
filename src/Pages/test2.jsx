@@ -58,7 +58,6 @@ const Test2 = () => {
         .onSnapshot((snapShot) => {
           getProjects(authUser.uid);
         });
-
     }
 
     if (projectId) {
@@ -197,6 +196,7 @@ const Test2 = () => {
               user={user}
               userId={userId}
               member={member}
+              tasks={tasks}
             />
           ) : (
             <ChatBox
@@ -206,6 +206,7 @@ const Test2 = () => {
               user={user}
               userId={userId}
               member={member}
+              tasks={tasks}
             />
           )}
 

@@ -21,9 +21,10 @@ import Editor, { DiffEditor, useMonaco, loader } from '@monaco-editor/react';
  * @param {*} props 
  * project={project}
  * projectId={projectId}
-  * authUser={authUser}
+ * authUser={authUser}
  * user={user}
  * userId={userId}
+ * tasks={tasks}
  * @returns 
  */
 const ChatBox = (props) => {
