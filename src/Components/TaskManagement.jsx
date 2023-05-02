@@ -4,6 +4,7 @@ import AsignedTask from './AsignedTask';
 import firebase from 'firebase/compat/app';
 import { db } from '../firebase';
 import { useRef } from 'react';
+import { log } from 'util';
 
 /**
  * 
@@ -19,7 +20,6 @@ import { useRef } from 'react';
  * @returns 
  */
 const TaskManagement = (props) => {
-    console.log(props.tasks);
     //------------------------------------------
     //--------------- VARIABLES ----------------
     //------------------------------------------
@@ -37,6 +37,15 @@ const TaskManagement = (props) => {
         if (taskName != '') {
             //Get selected UserName
             const select = document.getElementById("selectMember");
+            let memberName ="";
+
+            props.member.map((men) => {
+                console.log(men);
+                if (men.uid === select.value) {
+                    memberName = men.name;
+                    console.log(select.value);
+                }
+            })
 
             //Store DB
             const taskData = {
@@ -44,7 +53,7 @@ const TaskManagement = (props) => {
                 state: false,
                 created_at: firebase.firestore.FieldValue.serverTimestamp(),
                 asignedUser: select.value,
-                asignedUserName: select.textContent,
+                asignedUserName: memberName,
                 project: props.projectId
             }
             db.collection("tasks").add(taskData).then((res) => {

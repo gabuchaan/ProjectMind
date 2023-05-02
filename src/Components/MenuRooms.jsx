@@ -1,9 +1,11 @@
 import React from "react";
+import RoomUserIcon from "./RoomUserIcon";
 
 /**
  * 
  * @param {
  * progress={progress}
+ * member={member}
  * } props 
  * @returns 
  */
@@ -68,10 +70,15 @@ const MenuRooms = (props) => {
       <div className="cursor-pointer shadow-lg bg-white dark:bg-boxes w-full h-16 rounded-md hover:scale-105 hover:shadow-xl transition-all flex flex-row items-center justify-between pl-6 pr-4" onClick={designRoom}>
         <div id='roomDesign' className="text-back dark:text-white font-monserrat font-extralight text-lg">GENERAL</div>
         <div className="flex -space-x-2 overflow-hidden justify-end">
-          <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-boxes" src="https://tecdn.b-cdn.net/img/new/avatars/4.webp" alt="" />
-          <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-boxes" src="https://tecdn.b-cdn.net/img/new/avatars/3.webp" alt="" />
-          <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-boxes" src="https://tecdn.b-cdn.net/img/new/avatars/2.webp" alt="" />
-          <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-boxes" src="https://tecdn.b-cdn.net/img/new/avatars/1.webp" alt="" />
+          {
+            props.member.map((mem, index) => {
+              return <RoomUserIcon
+                member={mem}
+                key={index}
+              />
+            })
+          }
+
         </div>
       </div>
       <hr className="mt-4 border-gray-300 dark:border-boxes" />
@@ -79,11 +86,14 @@ const MenuRooms = (props) => {
         <div className=" cursor-pointer shadow-lg bg-white dark:bg-boxes w-full h-16 rounded-md hover:scale-105 hover:shadow-xl  transition-all flex flex-row items-center justify-between pl-6 pr-4" onClick={ideasRoom}>
           <div className="text-back dark:text-white font-monserrat font-extralight text-lg">IDEAS</div>
           <div className="flex -space-x-2 overflow-hidden justify-end">
-            <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-boxes" src="https://tecdn.b-cdn.net/img/new/avatars/8.webp" alt="" />
-            <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-boxes" src="https://tecdn.b-cdn.net/img/new/avatars/7.webp" alt="" />
-            <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-boxes" src="https://tecdn.b-cdn.net/img/new/avatars/6.webp" alt="" />
-            <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-boxes" src="https://tecdn.b-cdn.net/img/new/avatars/5.webp" alt="" />
-
+          {
+            props.member.map((mem, index) => {
+              return <RoomUserIcon
+                member={mem}
+                key={index}
+              />
+            })
+          }
           </div>
         </div>
 
@@ -91,37 +101,53 @@ const MenuRooms = (props) => {
         <div className="cursor-pointer shadow-lg bg-white dark:bg-boxes w-full h-16 rounded-md hover:scale-105 hover:shadow-xl transition-all flex flex-row items-center justify-between pl-6 pr-4" onClick={designRoom}>
           <div id='roomDesign' className="text-back dark:text-white font-monserrat font-extralight text-lg">DESIGN</div>
           <div className="flex -space-x-2 overflow-hidden justify-end">
-            <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-boxes" src="https://tecdn.b-cdn.net/img/new/avatars/4.webp" alt="" />
-            <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-boxes" src="https://tecdn.b-cdn.net/img/new/avatars/3.webp" alt="" />
-            <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-boxes" src="https://tecdn.b-cdn.net/img/new/avatars/2.webp" alt="" />
-            <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-boxes" src="https://tecdn.b-cdn.net/img/new/avatars/1.webp" alt="" />
+          {
+            props.member.map((mem, index) => {
+              return <RoomUserIcon
+                member={mem}
+                key={index}
+              />
+            })
+          }
           </div>
         </div>
         <div className="cursor-pointer shadow-lg bg-white dark:bg-boxes w-full h-16 rounded-md hover:scale-105 hover:shadow-xl transition-all flex flex-row items-center justify-between pl-6 pr-4" onClick={devRoom}>
           <div className="text-back dark:text-white font-monserrat font-extralight text-lg">DEVLOPMENT</div>
           <div className="flex -space-x-2 overflow-hidden justify-end">
-            <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-boxes" src="https://tecdn.b-cdn.net/img/new/avatars/10.webp" alt="" />
-            <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-boxes" src="https://tecdn.b-cdn.net/img/new/avatars/9.webp" alt="" />
-            <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-boxes" src="https://tecdn.b-cdn.net/img/new/avatars/11.webp" alt="" />
-            <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-boxes" src="https://tecdn.b-cdn.net/img/new/avatars/12.webp" alt="" />
+          {
+            props.member.map((mem, index) => {
+              return <RoomUserIcon
+                member={mem}
+                key={index}
+              />
+            })
+          }
           </div>
         </div>
         <div className="cursor-pointer shadow-lg bg-white dark:bg-boxes w-full h-16 rounded-md hover:scale-105 hover:shadow-xl transition-all flex flex-row items-center justify-between pl-6 pr-4" onClick={testRoom}>
           <div className="text-back dark:text-white font-monserrat font-extralight text-lg">TESTING</div>
           <div className="flex -space-x-2 overflow-hidden justify-end">
-            <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-boxes" src="https://tecdn.b-cdn.net/img/new/avatars/13.webp" alt="" />
-            <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-boxes" src="https://tecdn.b-cdn.net/img/new/avatars/14.webp" alt="" />
-            <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-boxes" src="https://tecdn.b-cdn.net/img/new/avatars/15.webp" alt="" />
-            <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-boxes" src="https://tecdn.b-cdn.net/img/new/avatars/16.webp" alt="" />
+          {
+            props.member.map((mem, index) => {
+              return <RoomUserIcon
+                member={mem}
+                key={index}
+              />
+            })
+          }
           </div>
         </div>
         <div className="cursor-pointer shadow-lg bg-white dark:bg-boxes w-full h-16 rounded-md hover:scale-105 hover:shadow-xl transition-all flex flex-row items-center justify-between pl-6 pr-4" onClick={marketingRoom}>
           <div className="text-back dark:text-white font-monserrat font-extralight text-lg">MARKETING</div>
           <div className="flex -space-x-2 overflow-hidden justify-end">
-            <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-boxes" src="https://tecdn.b-cdn.net/img/new/avatars/17.webp" alt="" />
-            <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-boxes" src="https://tecdn.b-cdn.net/img/new/avatars/18.webp" alt="" />
-            <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-boxes" src="https://tecdn.b-cdn.net/img/new/avatars/19.webp" alt="" />
-            <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-boxes" src="https://tecdn.b-cdn.net/img/new/avatars/20.webp" alt="" />
+          {
+            props.member.map((mem, index) => {
+              return <RoomUserIcon
+                member={mem}
+                key={index}
+              />
+            })
+          }
           </div>
         </div>
 

@@ -54,7 +54,6 @@ const EditProject = (props) => {
                     tasks={props.tasks}
                 />
 
-
                 <Members
                     project={props.project}
                     projectId={props.projectId}
@@ -63,10 +62,7 @@ const EditProject = (props) => {
                     userId={props.userId}
                     member={props.member}
                 />
-
             </div>
-
-
         </div>
     )
 }

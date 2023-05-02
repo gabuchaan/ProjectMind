@@ -2,7 +2,6 @@ import React from 'react'
 import { db } from '../firebase';
 
 const AsignedTask = (props) => {
-    console.log(props.task);
 
     function handleDone() {
         console.log("Click Done!!");
