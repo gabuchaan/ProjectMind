@@ -1,17 +1,24 @@
 import React from 'react'
 import MemberCard from './MemberCard'
 
-const Members = () => {
+/**
+ * 
+ * @param {
+ * member={props.member}
+ * } props 
+ * @returns 
+ */
+const Members = (props) => {
     return (
         <div className='w-full h-auto gap-3 mt-4 flex flex-wrap bg-transparent'>
-            <MemberCard />
-            <MemberCard />
-            <MemberCard />
-            <MemberCard />
-            <MemberCard />
-            <MemberCard />
-            <MemberCard />
-
+            {
+                props.member.map((mem, index) => {
+                    return <MemberCard
+                        member={mem}
+                        key={index}
+                    />
+                })
+            }
         </div>
     )
 }
