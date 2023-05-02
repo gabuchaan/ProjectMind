@@ -8,7 +8,7 @@ const Message = (props) => {
     if (props.message.created_at) {
       setDateTime(props.message.created_at.toDate().toLocaleTimeString());
     }
-  }, [])
+  }, [props.message])
 
   // const date = props.message.created_at.toDate().toLocaleTimeString();
 
@@ -36,31 +36,30 @@ const Message = (props) => {
         </div>
       </>
     );
+  }else{
+    return (
+      <>
+        <div className="chat chat-start ml-2">
+          <div className="chat-image avatar">
+            <div className="w-10 rounded-full ring-2 ring-gray-400">
+              <img src={props.message.avatar} />
+            </div>
+          </div>
+          <div className="chat-header">
+            <div className='text-black dark:text-white'>
+              {props.message.name}
+            </div>
+            
+          </div>
+          <div className="chat-bubble chat-bubble-accent">
+            {props.message.message}
+          </div>
+        </div>
+        <time className="dark:text-gray-400 text-gray-700 text-xs opacity-50 ml-14">{dateTime}</time>
+  
+      </>
+    );
   }
-
-  return (
-    <>
-      <div className="chat chat-start ml-2">
-        <div className="chat-image avatar">
-          <div className="w-10 rounded-full ring-2 ring-gray-400">
-            <img src={props.message.avatar} />
-          </div>
-        </div>
-        <div className="chat-header">
-          <div className='text-black dark:text-white'>
-            {props.message.name}
-          </div>
-          
-        </div>
-        <div className="chat-bubble chat-bubble-accent">
-          {props.message.message}
-        </div>
-      </div>
-      <time className="dark:text-gray-400 text-gray-700 text-xs opacity-50 ml-14">{dateTime}</time>
-
-    </>
-  );
-
 };
 
 export default Message;
