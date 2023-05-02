@@ -33,7 +33,7 @@ const Test2 = () => {
   const [projectId, setProjectId] = useState("");
   const [user, setUser] = useState({});
   const [userId, setUserId] = useState("");
-  const [invitation, setInvitation] = useState({});
+  const [invitation, setInvitation] = useState([]);
   const [member, setMember] = useState([]);
   const [tasks, setTasks] = useState([]);
 
@@ -84,12 +84,11 @@ const Test2 = () => {
     }
   }, [projectId]);
 
+
   //------------------------------------------
   //--------------- FUNCTIONS ----------------
   //------------------------------------------
   const getProjects = async (uid) => {
-    // const docRef = collection(db, "projects");
-    // const q = query(docRef, where("member", "array-contains", uid));
 
     const docRef = db.collection("users").doc(uid);
     const childRef = docRef.collection('projects');
@@ -103,16 +102,6 @@ const Test2 = () => {
       });
       setProjects(results)
     });
-
-
-    // getDocs(q).then((snapshot) => {
-    //   let results = [];
-
-    //   snapshot.docs.forEach((doc) => {
-    //     results.push({ id: doc.id, data: doc.data() });
-    //   });
-    //   setProjects(results);
-    // });
   }
 
   const getRecentProject = async (uid) => {
@@ -223,15 +212,15 @@ const Test2 = () => {
           {/*RIGHT MENU*/}
 
           <div className=" info-content col-span-12 xl:col-span-3 flex flex-col overflow-hidden pl-6 xl:pl-0 pr-6 pt-6 ">
-            {/* <Rightmenu
+            <Rightmenu
               project={project}
               projectId={projectId}
               authUser={authUser}
               user={user}
               userId={userId}
               tasks={tasks}
-            /> */}
-            <RightMenuTools />
+            />
+            {/* <RightMenuTools /> */}
           </div>
         </div>
       </div>

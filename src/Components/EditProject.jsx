@@ -2,6 +2,7 @@ import React from 'react'
 import ProjectPfpName from './Project-PfpName';
 import TaskManagement from './TaskManagement';
 import Members from './Members';
+import { useRef } from 'react';
 
 /**
  * project={project}
@@ -33,7 +34,14 @@ const EditProject = (props) => {
         <div className=" chat-box border-gray-300 dark:border-boxes col-span-12 xl:col-span-6 flex flex-col overflow-hidden xl:border-l xl:border-r p-6">
             <div className="overflow-y-scroll scrollbar-hidden scrollbar-hide pt-5 flex-1 float-left">
 
-                <ProjectPfpName />
+                <ProjectPfpName
+                    project={props.project}
+                    projectId={props.projectId}
+                    authUser={props.authUser}
+                    user={props.user}
+                    userId={props.userId}
+                    member={props.member}
+                />
 
                 <TaskManagement
                     project={props.project}

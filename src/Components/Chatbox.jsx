@@ -38,7 +38,6 @@ const ChatBox = (props) => {
   const [message, setMessage] = useState("");
   const [project, setProject] = useState({});
   const [myRole, setMyRole] = useState("");
-  const [mensajeInput, setMensajeInput] = useState("");
 
   useEffect(() => {
 
@@ -99,14 +98,6 @@ const ChatBox = (props) => {
     }
   }
 
-  const agregarMensaje = (mensaje) => {
-    setMessages([...messages, mensaje]);
-  };
-
-  const handleInputChange = (event) => {
-    setMensajeInput(event.target.value);
-  };
-
   const messageContainerRef = useRef(null);
 
   const handleSendMessage = async () => {
@@ -128,6 +119,7 @@ const ChatBox = (props) => {
 
   };
 
+  
 
   return (
     <>
@@ -150,7 +142,8 @@ const ChatBox = (props) => {
             <AiOutlineUserAdd className='cursor-pointer dark:hover:text-gray-100 transition-all' size={23} onClick={addUser} />
           </div>
         </div>
-        <Editor
+
+        {/* <Editor
           className='mt-2'
           height="30vh"
           defaultLanguage="javascript"
@@ -176,7 +169,7 @@ const ChatBox = (props) => {
             editor.getContainerDomNode().style.borderRadius = "0.375rem";
             editor.getContainerDomNode().style.backgroundColor = "#000";
           }}
-        />
+        /> */}
 
         {/*MESSAGES----------------*/}
         <div ref={messageContainerRef} className="overflow-y-scroll scrollbar-hidden scrollbar-hide pt-5 flex-1 float-left">

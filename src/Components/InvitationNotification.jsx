@@ -7,32 +7,30 @@ import firebase from 'firebase/compat/app';
 
 const InvitationNotification = (props) => {
 
-    console.log(props);
-
     async function joinToProject() {
-        console.log(props.userId);
+        console.log("Join!!");
         props.setShowNotifications(false); // Actualiza el estado de showNotifications a false
 
         const invitedUserRef = doc(db, "users", props.userId);
         await updateDoc(invitedUserRef, {
-            invited: arrayRemove(props.project[0].id),
+            invited: arrayRemove(props.project.id),
         });
 
         const parentDocRef = db.collection("users").doc(props.userId);
         const subCollectionRef = parentDocRef.collection("projects");
 
         // const invitedUserProjectsRef = invitedUserRef.collection("projects");
-        subCollectionRef.doc(props.project[0].id).set({
-            project: props.project[0].id,
+        subCollectionRef.doc(props.project.id).set({
+            project: props.project.id,
             last_connection_at: firebase.firestore.FieldValue.serverTimestamp()
         });
 
-        const joinProjectRef = doc(db, "projects", props.project[0].id);
+        const joinProjectRef = doc(db, "projects", props.project.id);
         await updateDoc(joinProjectRef, {
             invitation: arrayRemove(props.userId)
         });
 
-        const memberParentRef = db.collection('projects').doc(props.project[0].id);
+        const memberParentRef = db.collection('projects').doc(props.project.id);
         const memberChildRef = memberParentRef.collection('member');
 
         await memberChildRef.doc(props.userId).set({
@@ -46,14 +44,14 @@ const InvitationNotification = (props) => {
     }
 
     async function rejectProject() {
-        console.log(props.project[0]);
+        console.log("Reject!!");
         props.setShowNotifications(false); // Actualiza el estado de showNotifications a false
         const invitedUserRef = doc(db, "users", props.userId);
         await updateDoc(invitedUserRef, {
-            invited: arrayRemove(props.project[0].id),
+            invited: arrayRemove(props.project.id),
         });
 
-        const joinProjectRef = doc(db, "projects", props.project[0].id);
+        const joinProjectRef = doc(db, "projects", props.project.id);
         await updateDoc(joinProjectRef, {
             invitation: arrayRemove(props.userId)
         })

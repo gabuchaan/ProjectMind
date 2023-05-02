@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, } from 'react'
 import { AiOutlineBell, AiFillBell } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { BsPlusCircle } from "react-icons/bs";
@@ -11,16 +11,19 @@ import { getAuth, signOut } from "firebase/auth";
 
 
 const Sidebar = (props) => {
+
     console.log(props);
+    console.log(props.invitation);
+    console.log(props.invitation[0]);
+    console.log(props.invitation.length);
 
     const navigate = useNavigate();
     const Swal = require('sweetalert2')
     const [darkMode, setDarkMode] = useState(false);
     const [showNotifications, setShowNotifications] = useState(false);
-    const [haveInvitation, setHaveInvitation] = useState(null);
 
     const handleClick3 = () => {
-        if (props.invitation.length != 0) setShowNotifications(!showNotifications);
+        if (props.invitation.length !== 0) setShowNotifications(!showNotifications);
     };
 
     useEffect(() => {
@@ -30,10 +33,6 @@ const Sidebar = (props) => {
             document.documentElement.classList.remove('dark');
         }
     }, [darkMode]);
-
-    useEffect(() => {
-        setHaveInvitation(props.invitation.length != 0)
-    }, [props.invitation])
 
     function logOut() {
         const auth = getAuth();
@@ -46,7 +45,6 @@ const Sidebar = (props) => {
             console.log("err");
             // An error happened.
         });
-
     }
 
     async function createProjectForm() {
@@ -88,7 +86,10 @@ const Sidebar = (props) => {
             <div className="bg-white dark:bg-bars justify-center items-center side-menu  top-0 left-0 fixed w-16 h-screen flex flex-col  shadow-lg">
                 {/*NOTIFICATION BUTTON*/}
                 {
-                    haveInvitation ? <AiFillBell onClick={handleClick3} size={33} className="text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white hover:scale-105 cursor-pointer transition-all fixed top-5" /> : <AiOutlineBell onClick={handleClick3} size={33} className="text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white hover:scale-105 cursor-pointer transition-all fixed top-5" />
+                    (props.invitation.length !== 0) && <AiFillBell onClick={handleClick3} size={33} className="text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white hover:scale-105 cursor-pointer transition-all fixed top-5" /> 
+                }
+                {
+                    (props.invitation.length === 0) && <AiOutlineBell onClick={handleClick3} size={33} className="text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white hover:scale-105 cursor-pointer transition-all fixed top-5" />
                 }
                 <button className='fixed top-20 text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white hover:scale-105 transition-all'>
                     <label className="swap swap-rotate scale-75" >
@@ -124,7 +125,6 @@ const Sidebar = (props) => {
                     {props.projects.map((project, index) => {
                         return (
                             <ProjectIcon
-
                                 project={project}
                                 onClick={props.onClick}
                                 key={index}
