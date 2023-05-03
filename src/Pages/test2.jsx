@@ -41,10 +41,11 @@ const Test2 = () => {
 
   useEffect(() => {
     if (authUser) {
+      console.count("Get Auth!!")
       getRecentProject(authUser.uid);
     }
 
-  }, [authUser, projectId])
+  }, [user])
 
   useEffect(() => {
     if (authUser) {
@@ -124,20 +125,16 @@ const Test2 = () => {
   }
 
   const getRecentProject = async (uid) => {
+    console.count("getRecent");
     const userProjectsRef = collection(db, "users", uid, "projects");
     const q = query(userProjectsRef, orderBy("last_connection_at", "desc"), limit(1));
     getDocs(q).then((snapshot) => {
       const projectRef = db.collection("projects").doc(snapshot.docs[0].id);
       projectRef.get().then((res) => {
+        console.count("setProject");
         setProject(res.data());
         setProjectId(res.id);
       });
-      // const projectRef = doc(db, "projects", snapshot.docs[0]._document.data.value.mapValue.fields.project.stringValue);
-      // getDoc(projectRef)
-      //   .then((projectData) => {
-      //     setProject(projectData.data());
-      //     setProjectId(projectData.id);
-      //   });
     })
   }
 
@@ -174,7 +171,6 @@ const Test2 = () => {
     docRef.update({
       last_connection_at: firebase.firestore.FieldValue.serverTimestamp(),
     })
-
   }
 
   console.log(project);
