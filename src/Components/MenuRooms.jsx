@@ -1,5 +1,7 @@
-import React from "react";
+import React, {useState} from "react";
 import RoomUserIcon from "./RoomUserIcon";
+import RightMenuTools from "./RightMenuTools";
+import Editor, { DiffEditor, useMonaco, loader } from '@monaco-editor/react';
 
 /**
  * 
@@ -14,11 +16,17 @@ const MenuRooms = (props) => {
   //------------------------------------------
   //--------------- VARIABLES ----------------
   //------------------------------------------
-
+  const [showEditor, setShowEditor] = useState(false);
+  const [showTool, setShowTool] = useState(false);
   //------------------------------------------
   //----------------- HOOKS ------------------
   //------------------------------------------
-
+  const handleDesignClick = () => {
+    setShowEditor(!showEditor);
+  };
+  const handleDesignClick2 = () => {
+    setShowTool(!showTool);
+  };
   //------------------------------------------
   //--------------- FUNCTIONS ----------------
   //------------------------------------------
@@ -68,7 +76,7 @@ const MenuRooms = (props) => {
       </div>
       <hr className="mt-4 border-gray-300 dark:border-boxes" />
       <div className="cursor-pointer shadow-lg bg-white dark:bg-boxes w-full h-16 rounded-md hover:scale-105 hover:shadow-xl transition-all flex flex-row items-center justify-between pl-6 pr-4" onClick={designRoom}>
-        <div id='roomDesign' className="text-back dark:text-white font-monserrat font-extralight text-lg">GENERAL</div>
+        <div id='roomDesign' className="text-back dark:text-white font-monserrat font-extralight text-lg">Room</div>
         <div className="flex -space-x-2 overflow-hidden justify-end">
           {
             props.member.map((mem, index) => {
@@ -81,74 +89,63 @@ const MenuRooms = (props) => {
 
         </div>
       </div>
+      {showTool && (
+      <RightMenuTools />
+      )}
+      {showEditor && (
+          <Editor 
+            className='mt-2 z-40 rounded-lg bg-black'
+            height="30vh"
+            defaultLanguage="javascript"
+            defaultValue="// some comment"
+            options={{
+              minimap: { enabled: false },
+              roundedSelection: true,
+              wordWrap: "on",
+              theme: "vs-dark",
+              scrollbar: {
+                verticalScrollbarSize: 8,
+                horizontalScrollbarSize: 8,
+                useShadows: true,
+                vertical: 'auto',
+                horizontal: 'auto',
+                verticalHasArrows: false,
+                horizontalHasArrows: false,
+                alwaysConsumeMouseWheel: false,
+                arrowSize: 10,
+              },
+            }}
+            editorDidMount={(editor, monaco) => {
+              editor.getModel().updateOptions({ tabSize: 2 });
+              editor.updateOptions({ fontFamily: 'Courier New' });
+              editor.updateOptions({ lineNumbers: 'off' });
+              editor.updateOptions({ roundedSelection: true });
+              editor.updateOptions({ lineDecorationsWidth: 2 });
+              editor.updateOptions({ autoClosingBrackets: true });
+              editor.updateOptions({ colorDecorators: true });
+            }}
+          />
+        )}
       <hr className="mt-4 border-gray-300 dark:border-boxes" />
       <div className="mt-4 space-y-3">
-        <div className=" cursor-pointer shadow-lg bg-white dark:bg-boxes w-full h-16 rounded-md hover:scale-105 hover:shadow-xl  transition-all flex flex-row items-center justify-between pl-6 pr-4" onClick={ideasRoom}>
-          <div className="text-back dark:text-white font-monserrat font-extralight text-lg">IDEAS</div>
-          <div className="flex -space-x-2 overflow-hidden justify-end">
-          {
-            props.member.map((mem, index) => {
-              return <RoomUserIcon
-                member={mem}
-                key={index}
-              />
-            })
-          }
-          </div>
-        </div>
+        
 
 
-        <div className="cursor-pointer shadow-lg bg-white dark:bg-boxes w-full h-16 rounded-md hover:scale-105 hover:shadow-xl transition-all flex flex-row items-center justify-between pl-6 pr-4" onClick={designRoom}>
-          <div id='roomDesign' className="text-back dark:text-white font-monserrat font-extralight text-lg">DESIGN</div>
-          <div className="flex -space-x-2 overflow-hidden justify-end">
-          {
-            props.member.map((mem, index) => {
-              return <RoomUserIcon
-                member={mem}
-                key={index}
-              />
-            })
-          }
-          </div>
+        <div className="cursor-pointer shadow-lg bg-white dark:bg-boxes w-full h-16 rounded-md hover:scale-105 hover:shadow-xl transition-all flex flex-row items-center justify-between pl-6 pr-4" onClick={handleDesignClick2}>
+          <div id='roomDesign' className="text-back dark:text-white font-monserrat font-extralight text-lg">Design</div>
+          
         </div>
-        <div className="cursor-pointer shadow-lg bg-white dark:bg-boxes w-full h-16 rounded-md hover:scale-105 hover:shadow-xl transition-all flex flex-row items-center justify-between pl-6 pr-4" onClick={devRoom}>
-          <div className="text-back dark:text-white font-monserrat font-extralight text-lg">DEVLOPMENT</div>
-          <div className="flex -space-x-2 overflow-hidden justify-end">
-          {
-            props.member.map((mem, index) => {
-              return <RoomUserIcon
-                member={mem}
-                key={index}
-              />
-            })
-          }
-          </div>
+        <div className="cursor-pointer shadow-lg bg-white dark:bg-boxes w-full h-16 rounded-md hover:scale-105 hover:shadow-xl transition-all flex flex-row items-center justify-between pl-6 pr-4" onClick={handleDesignClick}>
+          <div className="text-back dark:text-white font-monserrat font-extralight text-lg">Development</div>
+          
         </div>
         <div className="cursor-pointer shadow-lg bg-white dark:bg-boxes w-full h-16 rounded-md hover:scale-105 hover:shadow-xl transition-all flex flex-row items-center justify-between pl-6 pr-4" onClick={testRoom}>
-          <div className="text-back dark:text-white font-monserrat font-extralight text-lg">TESTING</div>
-          <div className="flex -space-x-2 overflow-hidden justify-end">
-          {
-            props.member.map((mem, index) => {
-              return <RoomUserIcon
-                member={mem}
-                key={index}
-              />
-            })
-          }
-          </div>
+          <div className="text-back dark:text-white font-monserrat font-extralight text-lg">Test</div>
+          
         </div>
         <div className="cursor-pointer shadow-lg bg-white dark:bg-boxes w-full h-16 rounded-md hover:scale-105 hover:shadow-xl transition-all flex flex-row items-center justify-between pl-6 pr-4" onClick={marketingRoom}>
-          <div className="text-back dark:text-white font-monserrat font-extralight text-lg">MARKETING</div>
-          <div className="flex -space-x-2 overflow-hidden justify-end">
-          {
-            props.member.map((mem, index) => {
-              return <RoomUserIcon
-                member={mem}
-                key={index}
-              />
-            })
-          }
-          </div>
+          <div className="text-back dark:text-white font-monserrat font-extralight text-lg">Mrketing</div>
+          
         </div>
 
       </div>
